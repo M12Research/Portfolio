@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Theelen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="weather-style.css">
+</head>
+<body>
+    
+    <!-- Loading indicator while fetching weather -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Calculating uncertainty...</p>
+        </div>
+    </div>
+
+    <!-- Weather Info Display -->
+    <div class="weather-info">
+        <div class="weather-icon" id="weatherIcon">🌤️</div>
+        <div class="weather-text">
+            <span id="weatherDesc">Loading weather...</span>
+            <small>How predictable are you right now?</small>
+        </div>
+    </div>
+
+    <!-- Floating Name -->
+    <div class="floating-name" id="floatingName">
+        <h1>SAM THEELEN</h1>
+        <p class="tagline">Portfolio of cool stuff</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="corner-nav">
+        <a href="about.html">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="uncertainty-display">
+    <div class="uncertainty-number" id="uncertaintyValue">0</div>
+    <div class="uncertainty-label">Uncertainty</div>
+</div>
+
+    <!-- Weather-Driven Project Layout -->
+    <div class="chaos-container" id="chaosContainer">
+        
+        <!-- Project 1: FMP -->
+        <a href="project-1.html" class="project-item" data-base-x="15" data-base-y="25" data-size="450">
+            <img src="images/FMP/SideCycle.jpeg" alt="Final Master Project">
+            <div class="year-label">2026</div>
+            <div class="project-label">
+                <h3>Final Master Project</h3>
+                <span>[WIP]</span>
+            </div>
+        </a>
+
+        
+        <!-- Your Photo - Eye of the storm -->
+        <a href="about.html" class="photo-item" data-base-x="10" data-base-y="55" data-size="200">
+            <img src="images/Me/GAE09094.png" alt="Sam Theelen">
+        </a>
+
+        <!-- <div class="photo-item" data-base-x="10" data-base-y="55" data-size="320">
+            <img src="images/Me/GAE09094.png" alt="Sam Theelen">
+        </div> -->
+
+        <!-- Project 3: Studio Uncertainty -->
+        <a href="project-4.html" class="project-item" data-base-x="45" data-base-y="25" data-size="420">
+            <img src="images/Studio Uncertainty/Chork.jpg" alt="Studio Uncertainty">
+            <div class="year-label">2024</div>
+            <div class="project-label">
+                <h3>Studio Uncertainty</h3>
+                <span>Using AI as a design material</span>
+            </div>
+        </a>
+
+        <!-- Project 4: Philips -->
+        <a href="project-3.html" class="project-item" data-base-x="40" data-base-y="12" data-size="350">
+            <img src="images/Philips/dnKtmlyr(1).jpg" alt="Philips Internship">
+            <div class="year-label">2025</div>
+            <div class="project-label">
+                <h3>Philips Internship</h3>
+                <span>Testing AI in a big company</span>
+            </div>
+        </a>
+
+        <!-- Project 5: Tomos -->
+        <a href="project-5.html" class="project-item" data-base-x="25" data-base-y="55" data-size="300">
+            <img src="images/Tomos/tomo.jpg" alt="Tomos">
+            <div class="year-label">2022</div>
+            <div class="project-label">
+                <h3>Restomod</h3>
+                <span>Tinkering</span>
+            </div>
+        </a>
+
+        <!-- Project 2: NOIO -->
+        <a href="project-2.html" class="project-item" data-base-x="65" data-base-y="15" data-size="380">
+            <img src="images/N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜA̴C/GAE09120.png" alt="NOIO">
+            <div class="year-label">2025</div>
+            <div class="project-label">
+                <h3>N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜA̴C</h3>
+                <span>Maximizing AI uncertainty</span>
+            </div>
+        </a>
+
+        <!-- Project 7: FBP -->
+        <a href="project-7.html" class="project-item" data-base-x="63" data-base-y="47" data-size="320">
+            <img src="images/Vocal Fusion/893e0415-cd8a-4502-8481-47ea89225d94_rw_1920.png" alt="Vocal Fusion">
+            <div class="year-label">2023</div>
+            <div class="project-label">
+                <h3>Vocal Fusion</h3>
+                <span>Human-AI music creation</span>
+            </div>
+        </a>
+
+        <!-- Project 6: Tune In -->
+        <a href="project-6.html" class="project-item" data-base-x="47" data-base-y="55" data-size="250">
+            <img src="images/Tune In/Poster Final copy square.png" alt="Tune In">
+            <div class="year-label">2024</div>
+            <div class="project-label">
+                <h3>Tune In</h3>
+                <span>Explore music differently</span>
+            </div>
+        </a>
+
+        <!-- Project 8: FM3 -->
+        <a href="project-8.html" class="project-item" data-base-x="62" data-base-y="64" data-size="280">
+            <img src="images/FM3/FM3-07.jpg" alt="Quad FM3">
+            <div class="year-label">2024</div>
+            <div class="project-label">
+                <h3>Quad FM3 Streamer</h3>
+                <span>Retro Music Streaming</span>
+            </div>
+        </a>
+        <!-- Project 9: Thelecaster -->
+        <a href="project-9.html" class="project-item" data-base-x="42" data-base-y="58" data-size="160">
+            <img src="images/Thelecaster/3d32aa48-9bad-4e5d-bf64-bdaf1296da85_rw_1920.jpg" alt="Thelecaster">
+            <div class="year-label">2017</div>
+            <div class="project-label">
+                <h3>Thelecaster</h3>
+                <span>Where my design journey began</span>
+            </div>
+        </a>
+        <!-- Project 10: Other Projects -->
+        <a href="project-10.html" class="project-item" data-base-x="28" data-base-y="65" data-size="220">
+            <img src="images/Other/Bike/Magneet-28.jpg" alt="Bike">
+            <div class="year-label">2017-2026</div>
+            <div class="project-label">
+                <h3>Other stuff I built</h3>
+                <span>I love making</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Contact Footer -->
+    <footer id="contact" class="minimal-footer">
+        <div class="contact-info">
+            <a href="mailto:s.i.theelen@student.tue.nl">s.i.theelen@student.tue.nl</a>
+            <a href="https://www.linkedin.com/in/sam-theelen/">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="uncertainty-live.js"></script>
+
+</body>
+</html>

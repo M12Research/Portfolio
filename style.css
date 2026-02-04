@@ -1,0 +1,299 @@
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: #000;
+}
+
+/* Floating Name - Part of the composition */
+.floating-name {
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    z-index: 100;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem 3rem;
+    border: 4px solid #000;
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.floating-name h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+}
+
+.floating-name .tagline {
+    font-size: 1rem;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+/* Corner Navigation */
+.corner-nav {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 200;
+    display: flex;
+    gap: 2rem;
+}
+
+.corner-nav a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.corner-nav a:hover {
+    border-bottom: 3px solid #000;
+}
+
+/* Chaos Container - The organized mess */
+.chaos-container {
+    width: 100%;
+    min-height: 150vh;
+    position: relative;
+    padding: 15% 5% 10% 5%;
+}
+
+/* Project Items - Clickable, scattered */
+.project-item {
+    position: absolute;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), z-index 0s;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.15));
+}
+
+.project-item:hover {
+    transform: scale(1.08) rotate(0deg) !important;
+    z-index: 50 !important;
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.25));
+}
+
+.project-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 3px solid #000;
+}
+
+/* Project Labels - Appear on hover */
+.project-label {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 3px solid #000;
+    padding: 1rem 1.5rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s, bottom 0.3s;
+    pointer-events: none;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.project-item:hover .project-label {
+    opacity: 1;
+    bottom: -25px;
+}
+
+.project-label h3 {
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin-bottom: 0.3rem;
+}
+
+.project-label span {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* Your Photo - Part of the mess */
+.photo-item {
+    position: absolute;
+    filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.15));
+    transition: transform 0.4s;
+}
+
+.photo-item:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 50 !important;
+    cursor: pointer;
+}
+
+.photo-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 4px solid #000;
+}
+
+/* Accent Items - Background elements */
+.accent-item {
+    position: absolute;
+    pointer-events: none;
+    filter: grayscale(30%) blur(1px);
+}
+
+.accent-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Minimal Footer */
+.minimal-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 3px solid #000;
+    padding: 1.5rem 2rem;
+    z-index: 150;
+    backdrop-filter: blur(10px);
+}
+
+.contact-info {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-info a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.contact-info a:hover {
+    border-bottom: 2px solid #000;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    /* Medium screens - slightly smaller items */
+    .project-item {
+        width: 350px !important;
+    }
+    
+    .photo-item {
+        width: 280px !important;
+    }
+    
+    .accent-item {
+        width: 220px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile - Stack everything */
+    body {
+        background: #fff;
+    }
+    
+    .floating-name {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+        margin: 2rem 1rem;
+        padding: 1.5rem 2rem;
+    }
+    
+    .floating-name h1 {
+        font-size: 2rem;
+    }
+    
+    .corner-nav {
+        position: relative;
+        top: 0;
+        right: 0;
+        justify-content: center;
+        margin: 1rem;
+    }
+    
+    .chaos-container {
+        position: relative;
+        min-height: auto;
+        padding: 2rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .project-item,
+    .photo-item,
+    .accent-item {
+        position: relative !important;
+        width: 100% !important;
+        max-width: 400px;
+        margin: 0 auto;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: rotate(0deg) !important;
+    }
+    
+    .project-label {
+        position: relative;
+        opacity: 1;
+        bottom: 0;
+        transform: none;
+        margin-top: 1rem;
+        white-space: normal;
+    }
+    
+    .accent-item {
+        display: none;
+    }
+    
+    .minimal-footer {
+        position: relative;
+        margin-top: 3rem;
+    }
+}
+
+/* Smooth transitions for uncertainty changes */
+.project-item,
+.photo-item {
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                left 0.8s ease, 
+                top 0.8s ease,
+                filter 0.5s ease;
+}
+
+/* Optional: Subtle paper texture */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='3' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 9999;
+}

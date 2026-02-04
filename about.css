@@ -1,0 +1,190 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #000;
+    line-height: 1.6;
+}
+
+/* Back Button */
+.back-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    z-index: 1000;
+    padding: 1rem 1.5rem;
+    border: 2px solid #000;
+    background: rgba(255, 255, 255, 0.95);
+    transition: all 0.3s;
+}
+
+.back-button:hover {
+    background: #000;
+    color: #fff;
+    transform: translateX(-5px);
+}
+
+/* About Container */
+.about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem 2rem;
+}
+
+/* Hero Section */
+.about-hero {
+    margin-bottom: 6rem;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -3px;
+    margin-bottom: 1rem;
+}
+
+.about-hero h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 600;
+    opacity: 0.6;
+}
+
+/* Vision Section */
+.vision-section {
+    margin-bottom: 6rem;
+}
+
+.vision-section h3 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 3rem;
+    border-bottom: 4px solid #000;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.vision-point {
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    border-left: 4px solid #000;
+}
+
+.vision-point h4 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.vision-point p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.85;
+}
+
+/* Bio Section */
+.bio-section {
+    margin-bottom: 6rem;
+}
+
+.bio-section h3 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    border-bottom: 4px solid #000;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.bio-section p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+/* Contact Section */
+.contact-section {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #000;
+    color: #fff;
+    margin: 0 -2rem -4rem -2rem;
+}
+
+.contact-section h3 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+
+.contact-section p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.contact-section a {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 2px solid #fff;
+}
+
+.contact-section a:hover {
+    opacity: 0.7;
+}
+
+.social-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.social-links a {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 6rem 1.5rem 2rem 1.5rem;
+    }
+    
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .about-hero {
+        margin-bottom: 4rem;
+    }
+    
+    .vision-point {
+        padding-left: 1rem;
+    }
+    
+    .vision-point h4 {
+        font-size: 1.2rem;
+    }
+    
+    .vision-point p {
+        font-size: 1rem;
+    }
+    
+    .contact-section {
+        margin: 0 -1.5rem -2rem -1.5rem;
+    }
+}

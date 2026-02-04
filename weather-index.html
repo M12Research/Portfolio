@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sam Theelen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="weather-style.css">
+</head>
+<body>
+    
+    <!-- Weather Testing Controls - Remove when going live -->
+    <div class="weather-controls">
+        <h4>🌦️ Weather Simulator</h4>
+        <label>
+            Wind Direction (0-360°):
+            <input type="range" id="windDir" min="0" max="360" value="45" step="1">
+            <span id="windDirVal">45</span>°
+        </label>
+        <label>
+            Wind Speed (0-50 km/h):
+            <input type="range" id="windSpeed" min="0" max="50" value="15" step="1">
+            <span id="windSpeedVal">15</span> km/h
+        </label>
+        <label>
+            Temperature (-10 to 35°C):
+            <input type="range" id="temp" min="-10" max="35" value="12" step="1">
+            <span id="tempVal">12</span>°C
+        </label>
+        <label>
+            Cloud Cover (0-100%):
+            <input type="range" id="clouds" min="0" max="100" value="60" step="5">
+            <span id="cloudsVal">60</span>%
+        </label>
+        <label>
+            Rain (0-20mm):
+            <input type="range" id="rain" min="0" max="20" value="0" step="1">
+            <span id="rainVal">0</span>mm
+        </label>
+        <button id="applyWeather">Apply Weather</button>
+        <div class="presets">
+            <button class="preset" data-preset="sunny">☀️ Sunny</button>
+            <button class="preset" data-preset="cloudy">☁️ Cloudy</button>
+            <button class="preset" data-preset="rainy">🌧️ Rainy</button>
+            <button class="preset" data-preset="stormy">⛈️ Stormy</button>
+            <button class="preset" data-preset="cold">❄️ Cold</button>
+        </div>
+    </div>
+
+    <!-- Weather Info Display -->
+    <div class="weather-info">
+        <div class="weather-icon" id="weatherIcon">🌤️</div>
+        <div class="weather-text">
+            <span id="weatherDesc">Current weather in Eindhoven</span>
+            <small>Layout responds to real-time conditions</small>
+        </div>
+    </div>
+
+    <!-- Floating Name -->
+    <div class="floating-name" id="floatingName">
+        <h1>SAM THEELEN</h1>
+        <p class="tagline">Designer</p>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="corner-nav">
+        <a href="about.html">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Weather-Driven Project Layout -->
+    <div class="chaos-container" id="chaosContainer">
+        
+        <!-- Project 1: FMP -->
+        <a href="project-1.html" class="project-item" data-base-x="15" data-base-y="25" data-size="450">
+            <img src="images/FMP/SideCycle.jpeg" alt="Final Master Project">
+            <div class="project-label">
+                <h3>Final Master Project</h3>
+                <span>[WIP]</span>
+            </div>
+        </a>
+
+        <!-- Project 2: NOIO -->
+        <a href="project-2.html" class="project-item" data-base-x="65" data-base-y="15" data-size="380">
+            <img src="images/N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜA̴C/GAE09120.png" alt="NOIO">
+            <div class="project-label">
+                <h3>N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜA̴C</h3>
+                <span>Maximizing AI uncertainty</span>
+            </div>
+        </a>
+
+        <!-- Your Photo - Eye of the storm -->
+        <div class="photo-item" data-base-x="10" data-base-y="55" data-size="320">
+            <img src="images/Me/GAE09094.png" alt="Sam Theelen">
+        </div>
+
+        <!-- Project 3: Studio Uncertainty -->
+        <a href="project-4.html" class="project-item" data-base-x="55" data-base-y="60" data-size="420">
+            <img src="images/Studio Uncertainty/Chork.jpg" alt="Studio Uncertainty">
+            <div class="project-label">
+                <h3>Studio Uncertainty</h3>
+                <span>Using AI as a design material</span>
+            </div>
+        </a>
+
+        <!-- Project 4: Philips -->
+        <a href="project-3.html" class="project-item" data-base-x="30" data-base-y="75" data-size="350">
+            <img src="images/FMP/SideCycle.jpeg" alt="Philips Internship">
+            <div class="project-label">
+                <h3>Philips Internship</h3>
+                <span>Testing AI in a big company</span>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- Contact Footer -->
+    <footer id="contact" class="minimal-footer">
+        <div class="contact-info">
+            <a href="mailto:email@example.com">email@example.com</a>
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script src="weather-script.js"></script>
+
+</body>
+</html>
