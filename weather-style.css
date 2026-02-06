@@ -423,15 +423,15 @@ body.uncertainty-low {
 }
 
 body.uncertainty-medium {
-    background: #f5f0fa;
+    background: #9698ff;
 }
 
 body.uncertainty-high {
-    background: #faf0f5;
+    background: #ffff48;
 }
 
 body.uncertainty-extreme {
-    background: #f0f5fa;
+    background: #ff075a;
 }
 
 /* Uncertainty display styling */
@@ -446,11 +446,11 @@ body.uncertainty-extreme {
 
 .uncertainty-number {
     font-size: 4rem;
-    font-weight: 900;
+    font-weight: 600;
     font-family: 'Courier New', monospace;
-    color: #000;
-    line-height: 1;
-    opacity: 0.15;
+    color: #8b8b8b;
+    line-height: 0.8;
+    opacity: 0.5;
     transition: opacity 0.3s, color 0.5s;
 }
 
