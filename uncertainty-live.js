@@ -107,7 +107,7 @@ class UncertaintyLayout {
             });
             
             // Keep only last 10 scroll events
-            if (this.scrollHistory.length > 10) {
+            if (this.scrollHistory.length > 20) {
                 this.scrollHistory.shift();
             }
             
@@ -155,7 +155,7 @@ class UncertaintyLayout {
     
     applyUncertainty() {
     // Combine time (70%) and scroll (30%) uncertainty
-    this.combinedUncertainty = (this.timeUncertainty * 0.7) + (this.scrollVolatility * 0.3);
+    this.combinedUncertainty = (this.timeUncertainty * 0.7) + (this.scrollVolatility * 1.2);
     
     // Apply to layout
     this.positionProjects();
