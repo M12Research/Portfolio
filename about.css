@@ -12,6 +12,84 @@ body {
     line-height: 1.6;
 }
 
+body {
+    background: #fafafa;
+    animation: backgroundFlicker 1s infinite alternate;
+}
+
+@keyframes backgroundFlicker {
+    0%   { background:#fafafa; }
+    40%  { background:#f5f5f5; }
+    60%  { background:#ffffff; }
+    70%  { background:#f0f0f0; }
+    100% { background:#fafafa; }
+}
+
+.about-hero h1 {
+    text-shadow:
+        -2px 0 red,
+        2px 0 cyan;
+    animation: glitch 6s infinite;
+}
+
+@keyframes glitch {
+    0%   { transform: translate(0); }
+    20%  { transform: translate(-2px, 1px); }
+    40%  { transform: translate(2px, -1px); }
+    60%  { transform: translate(-1px, 2px); }
+    80%  { transform: translate(1px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.vision-point {
+    transform: rotate(-0.6deg);
+}
+
+.vision-point:nth-child(2n) {
+    transform: rotate(0.8deg);
+}
+
+.bio-section p:nth-child(2n) {
+    transform: translateX(20px);
+}
+
+.vision-point,
+.bio-section h3,
+.vision-section h3 {
+    border-color: black;
+    box-shadow: 8px 8px 0 black;
+    background: white;
+}
+.back-button {
+    transform: rotate(-2deg);
+    box-shadow: 6px 6px 0 black;
+}
+
+.back-button:hover {
+    transform: rotate(2deg) translateX(-5px);
+}
+
+p:hover,
+h4:hover {
+    letter-spacing: 2px;
+    transform: skewX(-5deg);
+    transition: 0.2s;
+}
+
+.about-container {
+    animation: breathe 10s infinite ease-in-out;
+}
+
+@keyframes breathe {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.01); }
+    100% { transform: scale(1); }
+}
+
+
+
+
+
 /* Back Button */
 .back-button {
     position: fixed;
@@ -187,4 +265,5 @@ body {
     .contact-section {
         margin: 0 -1.5rem -2rem -1.5rem;
     }
+    
 }
