@@ -44,5 +44,51 @@
         </div>
     </div>
 
+    <!-- ADD THIS LIGHTBOX HTML: -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img src="" alt="" id="lightboxImg">
+    </div>
+
+    <!-- ADD THIS SCRIPT: -->
+    <script>
+        // Image lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+
+        // Open lightbox when clicking any gallery image
+        galleryItems.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.classList.add('active');
+            });
+        });
+
+        // Close lightbox when clicking background or close button
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        // Prevent closing when clicking the image itself
+        lightboxImg.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
+
 </body>
 </html>

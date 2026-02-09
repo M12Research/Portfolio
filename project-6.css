@@ -210,6 +210,73 @@ body::after {
         transform: scale(1.15);
     }
 }
+/* Image Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 99999 !important;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 3rem;
+}
+
+.lightbox.active {
+    display: flex !important;
+}
+
+.lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border: none !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    transform: none !important;
+}
+
+.lightbox-close {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 300;
+    cursor: pointer;
+    z-index: 100000 !important;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2);
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Make gallery images clickable */
+.gallery-item,
+.cloud-item {
+    cursor: pointer;
+}
+
+.gallery-item img,
+.cloud-item img {
+    cursor: pointer;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {
