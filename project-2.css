@@ -133,28 +133,41 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Video Box - Below description */
+/* Video Box Container - Holds multiple videos */
 .video-box {
     position: fixed;
-    top: 58%;
+    bottom: 2rem;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translateX(-50%);
     width: 90%;
-    max-width: 800px;
+    max-width: 1400px;
+    display: flex;
+    gap: 2rem;
+    z-index: 99;
+}
+
+.video-box iframe {
+    flex: 1;
     aspect-ratio: 16/9;
-    background: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: auto;
     border: 3px solid #000;
     box-shadow: 
         0 0 80px rgba(100, 255, 150, 0.15),
         15px 15px 0 rgba(0, 0, 0, 0.3);
-    z-index: 99;
-    overflow: hidden;
+    background: rgba(0, 0, 0, 0.9);
 }
 
-.video-box iframe {
-    width: 100%;
-    height: 100%;
-    display: block;
+/* Mobile: Stack videos vertically */
+@media (max-width: 768px) {
+    .video-box {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        transform: none;
+        margin: 2rem auto;
+        flex-direction: column;
+    }
 }
 
 /* Scrollbar Styling */
