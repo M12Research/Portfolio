@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Atlas 3 Radio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="floor-radio.css">
+
+</head>
+
+<body>
+
+<a href="index.html" class="back-button">← Back</a>
+
+
+<!-- Floating Album Covers -->
+
+<div class="artifacts-container">
+
+<div class="artifact artifact-1">
+<img src="songs/Week 4/Covers/Cover2.jpg">
+</div>
+
+<div class="artifact artifact-2">
+<img src="songs/Week 4/Covers/Cover3.jpg">
+</div>
+
+<div class="artifact artifact-3">
+<img src="songs/Week 4/Covers/Cover4.jpg">
+</div>
+
+<div class="artifact artifact-4">
+<img src="songs/Week 4/Covers/Cover5.jpg">
+</div>
+
+</div>
+
+
+<!-- Radio Panel -->
+
+<div class="description-box">
+
+<h1>Atlas 3 Radio</h1>
+
+<p class="radio-description">
+Every week the residents of Atlas 3 submit one song, and we can listen to them here collectively.
+Put your submissions on the whiteboard and they will magically appear here!
+</p>
+
+<h2 class="week-title">Week 5 Broadcast</h2>
+
+<p class="radio-description">
+Waiting for submissions...
+</p>
+
+<h2 class="week-title">Week 4 Broadcast</h2>
+
+
+<div class="songs-container">
+
+<div class="song">
+<p class="song-title">Simone — Sam Cotton - Comment Tu T'appelles</p>
+<audio controls>
+<source src="songs/Week 4/Sam Cotton - Comment Tu T'appelles_.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Mees — Breezy S - Dig In 97</p>
+<audio controls>
+<source src="songs/Week 4/Breezy S - Dig In 97.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Hannah — Andrew Nolan - Our Voices are Already the Wind</p>
+<audio controls>
+<source src="songs/Week 4/Andrew Nolan - Our Voices are Already the Wind.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Koen — The Cure - A Forest</p>
+<audio controls>
+<source src="songs/Week 4/The Cure - A Forest.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Joost — Qlas - Waar Was Je</p>
+<audio controls>
+<source src="songs/Week 4/Qlas - Waar Was Je_.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Jens — Julee Cruise - Rockin' Back Inside My Heart</p>
+<audio controls>
+<source src="songs/Week 4/Julee Cruise - Rockin' Back Inside My Heart.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Giulia — Lake Street Dive - Rich Girl</p>
+<audio controls>
+<source src="songs/Week 4/Lake Street Dive - Rich Girl.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Jelmer — Tom Misch - Red Moon</p>
+<audio controls>
+<source src="songs/Week 4/Tom Misch - Red Moon.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="song">
+<p class="song-title">Sam — Jerry Reed - Gator</p>
+<audio controls>
+<source src="songs/Week 4/06 - Gator.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+</div>
+
+
+<div class="radio-footer">
+Atlas 3 — Week 4 Transmission
+</div>
+
+</div>
+
+<script>
+
+const players = document.querySelectorAll("audio");
+
+// Only allow one song playing
+player.addEventListener("play", () => {
+
+players.forEach(other => {
+other.pause();
+other.closest(".song").classList.remove("playing");
+});
+
+player.closest(".song").classList.add("playing");
+
+});
+
+
+// Auto play next song when finished
+player.addEventListener("ended", () => {
+
+const next = players[index + 1];
+
+if(next){
+next.play();
+}else{
+players[0].play();
+}
+
+});
+
+
+</script>
+
+</body>
+</html>
