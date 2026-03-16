@@ -25,19 +25,19 @@
 <div class="artifacts-container">
 
 <div class="artifact artifact-1">
-<img src="songs/Week 4/Covers/Cover2.jpg">
+<img id="cover1">
 </div>
 
 <div class="artifact artifact-2">
-<img src="songs/Week 4/Covers/Cover3.jpg">
+<img id="cover2">
 </div>
 
 <div class="artifact artifact-3">
-<img src="songs/Week 4/Covers/Cover4.jpg">
+<img id="cover3">
 </div>
 
 <div class="artifact artifact-4">
-<img src="songs/Week 4/Covers/Cover5.jpg">
+<img id="cover4">
 </div>
 
 </div>
@@ -167,6 +167,35 @@ players[0].play();
 
 });
 
+
+</script>
+
+<script>
+
+// list all available covers
+const covers = [
+"songs/Week 4/Covers/Cover.jpg",
+"songs/Week 4/Covers/Cover2.jpg",
+"songs/Week 4/Covers/Cover3.jpg",
+"songs/Week 4/Covers/Cover4.jpg",
+"songs/Week 4/Covers/Cover5.jpg",
+"songs/Week 4/Covers/Cover6.jpg",
+"songs/Week 4/Covers/Cover7.jpg",
+"songs/Week 4/Covers/Cover8.jpg",
+"songs/Week 4/Covers/Cover9.jpg",
+];
+
+// shuffle the array
+const shuffled = covers.sort(() => 0.5 - Math.random());
+
+// take first 4
+const selected = shuffled.slice(0,4);
+
+// apply them to artifacts
+document.getElementById("cover1").src = selected[0];
+document.getElementById("cover2").src = selected[1];
+document.getElementById("cover3").src = selected[2];
+document.getElementById("cover4").src = selected[3];
 
 </script>
 
