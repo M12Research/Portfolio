@@ -448,3 +448,20 @@ letter-spacing:1px;
 outline:3px solid black;
 transform:scale(1.02);
 }
+
+.shuffle-button{
+margin-bottom:1.5rem;
+padding:0.6rem 1rem;
+font-family:'Space Grotesk',sans-serif;
+font-weight:700;
+border:2px solid black;
+background:white;
+cursor:pointer;
+box-shadow:4px 4px 0 black;
+transition:0.2s;
+}
+
+.shuffle-button:hover{
+transform:translate(-2px,-2px);
+box-shadow:6px 6px 0 black;
+}

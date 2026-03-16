@@ -54,11 +54,23 @@ Every week the residents of Atlas 3 submit one song, and we can listen to them h
 Put your submissions on the whiteboard and they will magically appear here!
 </p>
 
+<button id="shuffleBtn" class="shuffle-button">Shuffle OFF</button>
+
 <h2 class="week-title">Week 5 Broadcast</h2>
 
+<div class="songs-container">
+
+<div class="song">
+<p class="song-title">Sam — Sugaray Rayford - Homemade Disaster</p>
+<audio controls>
+<source src="songs/Week 5/Sugaray Rayford - Homemade Disaster.mp3" type="audio/mpeg">
+</audio>
+</div>
+
 <p class="radio-description">
-Waiting for submissions...
 </p>
+
+</div>
 
 <h2 class="week-title">Week 4 Broadcast</h2>
 
@@ -139,33 +151,65 @@ Atlas 3 — Week 4 Transmission
 
 <script>
 
-const players = document.querySelectorAll("audio");
+const players = Array.from(document.querySelectorAll("audio"));
+let shuffleMode = false;
+let playOrder = [...players.keys()];
 
-// Only allow one song playing
-player.addEventListener("play", () => {
+// shuffle function
+function shuffle(array){
+for(let i = array.length -1; i>0; i--){
+const j = Math.floor(Math.random() * (i + 1));
+[array[i], array[j]] = [array[j], array[i]];
+}
+}
 
-players.forEach(other => {
-other.pause();
-other.closest(".song").classList.remove("playing");
-});
+// handle shuffle button
+document.getElementById("shuffleBtn").addEventListener("click", () => {
 
-player.closest(".song").classList.add("playing");
+shuffleMode = !shuffleMode;
 
-});
+playOrder = [...players.keys()];
 
-
-// Auto play next song when finished
-player.addEventListener("ended", () => {
-
-const next = players[index + 1];
-
-if(next){
-next.play();
+if(shuffleMode){
+shuffle(playOrder);
+document.getElementById("shuffleBtn").innerText = "Shuffle ON";
 }else{
-players[0].play();
+document.getElementById("shuffleBtn").innerText = "Shuffle OFF";
 }
 
 });
+
+players.forEach((player,index)=>{
+
+// only one player active
+player.addEventListener("play",()=>{
+
+players.forEach(other=>{
+if(other !== player){
+other.pause();
+}
+});
+
+});
+
+// auto next song
+player.addEventListener("ended",()=>{
+
+let currentIndex = playOrder.indexOf(index);
+let nextIndex = playOrder[currentIndex + 1];
+
+// loop to start
+if(nextIndex === undefined){
+nextIndex = playOrder[0];
+}
+
+players[nextIndex].play();
+
+});
+
+});
+
+</script>
 
 
 </script>
@@ -183,6 +227,7 @@ const covers = [
 "songs/Week 4/Covers/Cover7.jpg",
 "songs/Week 4/Covers/Cover8.jpg",
 "songs/Week 4/Covers/Cover9.jpg",
+"songs/Week 5/Covers/Cover.jpg"
 ];
 
 // shuffle the array
