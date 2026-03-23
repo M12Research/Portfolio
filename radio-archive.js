@@ -17,7 +17,28 @@ audioUnlocked = true
 
 const songs = [
 
-/* WEEK 5 */
+/* WEEK 6 */
+
+
+{
+cover:"songs/Week 6/Covers/Cover.jpg",
+file:"songs/Week 6/02 - Oh Frustration.mp3",
+artist:"AJ Fullerton",
+title:"Oh Frustration",
+person:"Sam",
+week:"Week 6"
+},
+
+    /* WEEK 5 */
+
+{
+cover:"songs/Week 5/Covers/Cover7.jpg",
+file:"songs/Week 5/Ruby Jackson - Simplicities.mp3",
+artist:"Ruby Jackson",
+title:"Simplicities",
+person:"Simone",
+week:"Week 5"
+},
 
 {
 cover:"songs/Week 5/Covers/Cover6.jpg",
