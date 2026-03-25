@@ -18,7 +18,23 @@ audioUnlocked = true
 const songs = [
 
 /* WEEK 6 */
+{
+cover:"songs/Week 6/Covers/Cover3.jpg",
+file:"songs/Week 6/aya - heat death.mp3",
+artist:"aya",
+title:"heat death",
+person:"Hannah",
+week:"Week 6"
+},
 
+{
+cover:"songs/Week 6/Covers/Cover2.jpg",
+file:"songs/Week 6/Bad Bunny - LO QUE LE PASÓ A HAWAii.mp3",
+artist:"Bad Bunny",
+title:"LO QUE LE PASÓ A HAWAii",
+person:"Simone",
+week:"Week 6"
+},
 
 {
 cover:"songs/Week 6/Covers/Cover.jpg",
