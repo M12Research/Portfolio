@@ -19,6 +19,15 @@ const songs = [
 
 /* WEEK 6 */
 {
+cover:"songs/Week 6/Covers/Cover4.jpg",
+file:"songs/Week 6/Sef - De Machine.mp3",
+artist:"Sef",
+title:"De Machine",
+person:"Jelmer",
+week:"Week 6"
+},
+
+{
 cover:"songs/Week 6/Covers/Cover3.jpg",
 file:"songs/Week 6/aya - heat death.mp3",
 artist:"aya",
