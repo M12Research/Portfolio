@@ -19,6 +19,24 @@ const songs = [
 
 /* WEEK 6 */
 {
+cover:"songs/Week 6/Covers/Cover6.jpg",
+file:"songs/Week 6/Villagers of Ioannina City - Father Sun.mp3",
+artist:"Villagers of Ioannina City",
+title:"Father Sun",
+person:"Isidoris",
+week:"Week 6"
+},
+
+{
+cover:"songs/Week 6/Covers/Cover5.jpg",
+file:"songs/Week 6/Jack Kays - SLEEP WHEN I'M DEAD.mp3",
+artist:"Jack Kays",
+title:"SLEEP WHEN I'M DEAD",
+person:"Robin",
+week:"Week 6"
+},
+
+{
 cover:"songs/Week 6/Covers/Cover4.jpg",
 file:"songs/Week 6/Sef - De Machine.mp3",
 artist:"Sef",
