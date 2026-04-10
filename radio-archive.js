@@ -17,6 +17,72 @@ audioUnlocked = true
 
 const songs = [
 
+/* WEEK 8 */
+{
+cover:"songs/Week 8/Covers/Cover5.jpg",
+file:"songs/Week 8/The Black Eyed Peas - GIRL LIKE ME.mp3",
+artist:"The Black Eyed Peas",
+title:"GIRL LIKE ME",
+person:"Joost",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover4.jpg",
+file:"songs/Week 8/Snowy White - Midnight Blues.mp3",
+artist:"Snowy White",
+title:"Midnight Blues",
+person:"Lara #",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover3.jpg",
+file:"songs/Week 8/Swarm Intelligence - Chromium Chambering.mp3",
+artist:"Swarm Intelligence",
+title:"Chromium Chambering",
+person:"Hannah",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover2.jpg",
+file:"songs/Week 8/RAYE - I Will Overcome.mp3",
+artist:"RAYE",
+title:"I Will Overcome",
+person:"Simone",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover.jpg",
+file:"songs/Week 8/Save Me.mp3",
+artist:"Marcus King",
+title:"Save Me",
+person:"Sam",
+week:"Week 8"
+},
+
+/* WEEK 7 */
+{
+cover:"songs/Week 7/Covers/Cover.jpg",
+file:"songs/Week 7/Madvillain - Meat Grinder.mp3",
+artist:"Madvillain",
+title:"Meat Grinder",
+person:"Jelmer",
+week:"Week 7"
+},
+
+{
+cover:"songs/Week 7/Covers/Cover2.jpg",
+file:"songs/Week 7/Ulver - The Future Sound of Music.mp3",
+artist:"Ulver",
+title:"The Future Sound of Music",
+person:"Hannah",
+week:"Week 7"
+},
+
+
 /* WEEK 6 */
 {
 cover:"songs/Week 6/Covers/Cover6.jpg",
@@ -74,152 +140,152 @@ week:"Week 6"
 
     /* WEEK 5 */
 
-{
-cover:"songs/Week 5/Covers/Cover7.jpg",
-file:"songs/Week 5/Ruby Jackson - Simplicities.mp3",
-artist:"Ruby Jackson",
-title:"Simplicities",
-person:"Simone",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover7.jpg",
+// file:"songs/Week 5/Ruby Jackson - Simplicities.mp3",
+// artist:"Ruby Jackson",
+// title:"Simplicities",
+// person:"Simone",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover6.jpg",
-file:"songs/Week 5/Damon Albarn - Mr Tembo.mp3",
-artist:"amon Albarn",
-title:"Mr Tembo",
-person:"Jelmer",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover6.jpg",
+// file:"songs/Week 5/Damon Albarn - Mr Tembo.mp3",
+// artist:"amon Albarn",
+// title:"Mr Tembo",
+// person:"Jelmer",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover5.jpg",
-file:"songs/Week 5/Thee Sacred Souls - Running Away.mp3",
-artist:"Thee Sacred Souls",
-title:"Running Away",
-person:"Isidoris",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover5.jpg",
+// file:"songs/Week 5/Thee Sacred Souls - Running Away.mp3",
+// artist:"Thee Sacred Souls",
+// title:"Running Away",
+// person:"Isidoris",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover2.jpg",
-file:"songs/Week 5/Paul Simon - 50 Ways to Leave Your Lover.mp3",
-artist:"Paul Simon",
-title:"50 Ways to Leave Your Lover",
-person:"Giulia",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover2.jpg",
+// file:"songs/Week 5/Paul Simon - 50 Ways to Leave Your Lover.mp3",
+// artist:"Paul Simon",
+// title:"50 Ways to Leave Your Lover",
+// person:"Giulia",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover4.jpg",
-file:"songs/Week 5/9days - AFRICAN GIRLS DO CRY.mp3",
-artist:"9days",
-title:"AFRICAN GIRLS DO CRY",
-person:"Lara",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover4.jpg",
+// file:"songs/Week 5/9days - AFRICAN GIRLS DO CRY.mp3",
+// artist:"9days",
+// title:"AFRICAN GIRLS DO CRY",
+// person:"Lara",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover3.jpg",
-file:"songs/Week 5/JK Flesh - DISAGREEABLE.mp3",
-artist:"JK Flesh",
-title:"DISAGREEABLE",
-person:"Hannah",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover3.jpg",
+// file:"songs/Week 5/JK Flesh - DISAGREEABLE.mp3",
+// artist:"JK Flesh",
+// title:"DISAGREEABLE",
+// person:"Hannah",
+// week:"Week 5"
+// },
 
-{
-cover:"songs/Week 5/Covers/Cover.jpg",
-file:"songs/Week 5/Sugaray Rayford - Homemade Disaster.mp3",
-artist:"Sugaray Rayford",
-title:"Homemade Disaster",
-person:"Sam",
-week:"Week 5"
-},
+// {
+// cover:"songs/Week 5/Covers/Cover.jpg",
+// file:"songs/Week 5/Sugaray Rayford - Homemade Disaster.mp3",
+// artist:"Sugaray Rayford",
+// title:"Homemade Disaster",
+// person:"Sam",
+// week:"Week 5"
+// },
 
 
 /* WEEK 4 */
 
-{
-cover:"songs/Week 4/Covers/Cover2.jpg",
-file:"songs/Week 4/Sam Cotton - Comment Tu T'appelles_.mp3",
-artist:"Sam Cotton",
-title:"Comment Tu T'appelles",
-person:"Simone",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover2.jpg",
+// file:"songs/Week 4/Sam Cotton - Comment Tu T'appelles_.mp3",
+// artist:"Sam Cotton",
+// title:"Comment Tu T'appelles",
+// person:"Simone",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover3.jpg",
-file:"songs/Week 4/Breezy S - Dig In 97.mp3",
-artist:"Breezy S",
-title:"Dig In 97",
-person:"Mees",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover3.jpg",
+// file:"songs/Week 4/Breezy S - Dig In 97.mp3",
+// artist:"Breezy S",
+// title:"Dig In 97",
+// person:"Mees",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover4.jpg",
-file:"songs/Week 4/Andrew Nolan - Our Voices are Already the Wind.mp3",
-artist:"Andrew Nolan",
-title:"Our Voices are Already the Wind",
-person:"Hannah",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover4.jpg",
+// file:"songs/Week 4/Andrew Nolan - Our Voices are Already the Wind.mp3",
+// artist:"Andrew Nolan",
+// title:"Our Voices are Already the Wind",
+// person:"Hannah",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover5.jpg",
-file:"songs/Week 4/The Cure - A Forest.mp3",
-artist:"The Cure",
-title:"A Forest",
-person:"Koen",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover5.jpg",
+// file:"songs/Week 4/The Cure - A Forest.mp3",
+// artist:"The Cure",
+// title:"A Forest",
+// person:"Koen",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover6.jpg",
-file:"songs/Week 4/Qlas - Waar Was Je_.mp3",
-artist:"Qlas",
-title:"Waar Was Je",
-person:"Joost",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover6.jpg",
+// file:"songs/Week 4/Qlas - Waar Was Je_.mp3",
+// artist:"Qlas",
+// title:"Waar Was Je",
+// person:"Joost",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover7.jpg",
-file:"songs/Week 4/Julee Cruise - Rockin' Back Inside My Heart.mp3",
-artist:"Julee Cruise",
-title:"Rockin' Back Inside My Heart",
-person:"Jens",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover7.jpg",
+// file:"songs/Week 4/Julee Cruise - Rockin' Back Inside My Heart.mp3",
+// artist:"Julee Cruise",
+// title:"Rockin' Back Inside My Heart",
+// person:"Jens",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover8.jpg",
-file:"songs/Week 4/Lake Street Dive - Rich Girl.mp3",
-artist:"Lake Street Dive",
-title:"Rich Girl",
-person:"Giulia",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover8.jpg",
+// file:"songs/Week 4/Lake Street Dive - Rich Girl.mp3",
+// artist:"Lake Street Dive",
+// title:"Rich Girl",
+// person:"Giulia",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover9.jpg",
-file:"songs/Week 4/Tom Misch - Red Moon.mp3",
-artist:"Tom Misch",
-title:"Red Moon",
-person:"Jelmer",
-week:"Week 4"
-},
+// {
+// cover:"songs/Week 4/Covers/Cover9.jpg",
+// file:"songs/Week 4/Tom Misch - Red Moon.mp3",
+// artist:"Tom Misch",
+// title:"Red Moon",
+// person:"Jelmer",
+// week:"Week 4"
+// },
 
-{
-cover:"songs/Week 4/Covers/Cover.jpg",
-file:"songs/Week 4/06 - Gator.mp3",
-artist:"Jerry Reed",
-title:"Gator",
-person:"Sam",
-week:"Week 4"
-}
+// {
+// cover:"songs/Week 4/Covers/Cover.jpg",
+// file:"songs/Week 4/06 - Gator.mp3",
+// artist:"Jerry Reed",
+// title:"Gator",
+// person:"Sam",
+// week:"Week 4"
+// }
 
 ];
 
