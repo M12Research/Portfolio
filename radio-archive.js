@@ -17,7 +17,54 @@ audioUnlocked = true
 
 const songs = [
 
+/* WEEK 9 */
+
+{
+cover:"songs/Week 9/Covers/Cover.jpg",
+file:"songs/Week 9/02 - Bitter.mp3",
+artist:"Palace",
+title:"Bitter",
+person:"Sam",
+week:"Week 9"
+},
+
 /* WEEK 8 */
+{
+cover:"songs/Week 8/Covers/Cover9.jpg",
+file:"songs/Week 8/Lily Allen - LDN.mp3",
+artist:"Lily Allen",
+title:"LDN",
+person:"Giulia",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover7.jpg",
+file:"songs/Week 8/RUBII - BOTB.mp3",
+artist:"RUBII",
+title:"BOTB",
+person:"Anne",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover8.jpg",
+file:"songs/Week 8/KIDS SEE GHOSTS - Kids See Ghosts.mp3",
+artist:"KIDS SEE GHOSTS",
+title:"Kids See Ghosts",
+person:"Jelmer",
+week:"Week 8"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover6.jpg",
+file:"songs/Week 8/03 Planet Caravan.mp3",
+artist:"Black Sabbath",
+title:"Planet Caravan",
+person:"Isidoris",
+week:"Week 8"
+},
+
 {
 cover:"songs/Week 8/Covers/Cover5.jpg",
 file:"songs/Week 8/The Black Eyed Peas - GIRL LIKE ME.mp3",
