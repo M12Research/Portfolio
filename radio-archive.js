@@ -20,10 +20,55 @@ const songs = [
 /* WEEK 9 */
 
 {
+cover:"songs/Week 9/Covers/Cover6.jpg",
+file:"songs/Week 9/The Who - Baba O'Riley.mp3",
+artist:"The Who",
+title:"Baba O'Riley",
+person:"Jelmer",
+week:"Week 9"
+},
+
+{
+cover:"songs/Week 9/Covers/Cover5.jpg",
+file:"songs/Week 9/Karkossyn - Covered In Sand.mp3",
+artist:"Karkossyn",
+title:"Covered In Sand",
+person:"Hannah",
+week:"Week 9"
+},
+
+{
+cover:"songs/Week 9/Covers/Cover4.jpg",
+file:"songs/Week 9/Supershy - Keep It Rising.mp3",
+artist:"Supershy",
+title:"Keep It Rising",
+person:"Lara #",
+week:"Week 9"
+},
+
+{
+cover:"songs/Week 8/Covers/Cover2.jpg",
+file:"songs/Week 9/RAYE - Click Clack Symphony. (feat. Hans Zimmer).mp3",
+artist:"RAYE",
+title:"Click Clack Symphony. (feat. Hans Zimmer)",
+person:"Simone",
+week:"Week 9"
+},
+
+{
+cover:"songs/Week 9/Covers/Cover2.jpg",
+file:"songs/Week 9/Lily Allen - Trigger Bang (feat. Giggs).mp3",
+artist:"Lily Allen",
+title:"Trigger Bang (feat. Giggs)",
+person:"Giulia",
+week:"Week 9"
+},
+
+{
 cover:"songs/Week 9/Covers/Cover.jpg",
-file:"songs/Week 9/02 - Bitter.mp3",
-artist:"Palace",
-title:"Bitter",
+file:"songs/Week 9/Novos Baianos - O samba da minha terra.mp3",
+artist:"Novos Baianos",
+title:"O Samba Da Minha Terra",
 person:"Sam",
 week:"Week 9"
 },
@@ -589,3 +634,25 @@ document.body.classList.remove("center-active")
 
 }
 )
+const infoBtn = document.getElementById("infoButton")
+const overlay = document.getElementById("infoOverlay")
+const closeBtn = document.getElementById("closeInfo")
+
+function openOverlay(){
+overlay.classList.add("active")
+document.body.style.overflow = "hidden"
+}
+
+function closeOverlay(){
+overlay.classList.remove("active")
+document.body.style.overflow = "hidden"
+}
+
+infoBtn.addEventListener("click", openOverlay)
+closeBtn.addEventListener("click", closeOverlay)
+
+overlay.addEventListener("click", (e) => {
+if(e.target === overlay){
+closeOverlay()
+}
+})
