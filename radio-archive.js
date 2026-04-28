@@ -17,6 +17,45 @@ audioUnlocked = true
 
 const songs = [
 
+
+/* WEEK 10 */
+
+{
+cover:"songs/Week 10/Covers/Cover2.jpg",
+file:"songs/Week 10/Amy Winehouse - Back To Black.mp3",
+artist:"Amy Winehouse",
+title:"Back To Black",
+person:"Joost",
+week:"Week 10"
+},
+
+{
+cover:"songs/Week 10/Covers/Cover3.jpg",
+file:"songs/Week 10/ROSALÍA - Sexo, Violencia y Llantas.mp3",
+artist:"ROSALÍA",
+title:"Sexo, Violencia y Llantas",
+person:"Jelmer",
+week:"Week 10"
+},
+
+{
+cover:"songs/Week 10/Covers/Cover4.jpg",
+file:"songs/Week 10/Teardrinker - To the Ones Whose Bodies Shall Shake the Heavens.mp3",
+artist:"Teardrinker",
+title:"Baba O'Riley",
+person:"Hannah",
+week:"Week 10"
+},
+
+{
+cover:"songs/Week 10/Covers/Cover.jpg",
+file:"songs/Week 10/Ze Roberto - Lotus 72 D.mp3",
+artist:"Ze Roberto",
+title:"Lotus 72 D",
+person:"Sam",
+week:"Week 10"
+},
+
 /* WEEK 9 */
 
 {
