@@ -62,7 +62,7 @@ week:"Week 10"
 cover:"songs/Week 10/Covers/Cover4.jpg",
 file:"songs/Week 10/Teardrinker - To the Ones Whose Bodies Shall Shake the Heavens.mp3",
 artist:"Teardrinker",
-title:"Baba O'Riley",
+title:"To the Ones Whose Bodies Shall Shake the Heavens",
 person:"Hannah",
 week:"Week 10"
 },
