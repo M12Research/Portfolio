@@ -18,7 +18,27 @@ audioUnlocked = true
 const songs = [
 
 
+/* WEEK 11 */
+
+{
+cover:"songs/Week 11/Covers/Cover.jpg",
+file:"songs/Week 11/poolfire - Radio Man (Official Audio).mp3",
+artist:"Poolfire",
+title:"Radio Man",
+person:"Sam",
+week:"Week 11"
+},
+
 /* WEEK 10 */
+
+{
+cover:"songs/Week 10/Covers/Cover5.jpg",
+file:"songs/Week 10/Ravyn Lenae - Reputation (feat. Dominic Fike).mp3",
+artist:"Ravyn Lenae",
+title:"Reputation (feat. Dominic Fike)",
+person:"Giulia",
+week:"Week 10"
+},
 
 {
 cover:"songs/Week 10/Covers/Cover2.jpg",
