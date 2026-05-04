@@ -165,6 +165,8 @@ class UncertaintyLayout {
     
     // Update uncertainty display number
     this.updateUncertaintyNumber();
+
+    updateGlitch(this.combinedUncertainty);
 }
     
     positionProjects() {
@@ -259,9 +261,89 @@ updateUncertaintyNumber() {
         weatherIcon.textContent = icon;
         weatherDesc.textContent = message;
     }
+    
 }
+
+let glitchTarget
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
     const layout = new UncertaintyLayout();
+    glitchTarget = document.getElementById("glitchName")
 });
+
+const originalText = "SAM THEELEN"
+
+// glitch characters
+const glitchChars = [
+    "̴","̵","̶","̷","̸","̹","̺","̻","̼","͓","͔","͕","͖",
+    "͗","͘","͙","͚","͛","͜","͝","͞","͟","͠"
+]
+
+// create corrupted version
+function glitchText(text, intensity){
+
+    let result = ""
+
+    for(let char of text){
+
+        // chance to glitch per character
+        if(Math.random() < intensity){
+
+            let corrupted = char
+
+            // add combining marks (Zalgo-style)
+            const count = Math.floor(intensity * 5)
+
+            for(let i=0;i<count;i++){
+                corrupted += glitchChars[Math.floor(Math.random()*glitchChars.length)]
+            }
+
+            result += corrupted
+
+        } else {
+            result += char
+        }
+    }
+
+    return result
+}
+
+// animate glitch
+function updateGlitch(uncertainty){
+
+    // normalize 0 → 100 into 0 → 1
+    let intensity = uncertainty / 100
+
+    // how often it refreshes
+    let speed = 200 - (intensity * 180)
+
+    clearInterval(window.glitchLoop)
+
+    window.glitchLoop = setInterval(() => {
+
+        glitchTarget.innerText = glitchText(originalText, intensity)
+
+    }, speed)
+}
+
+const aiBtn = document.getElementById("aiButton")
+const aiOverlay = document.getElementById("aiOverlay")
+const closeAI = document.getElementById("closeAI")
+
+// OPEN
+aiBtn.addEventListener("click", () => {
+    aiOverlay.classList.add("active")
+})
+
+// CLOSE BUTTON
+closeAI.addEventListener("click", () => {
+    aiOverlay.classList.remove("active")
+})
+
+// CLICK OUTSIDE
+aiOverlay.addEventListener("click", (e) => {
+    if(e.target === aiOverlay){
+        aiOverlay.classList.remove("active")
+    }
+})
