@@ -10,7 +10,10 @@
     <link rel="stylesheet" href="weather-style.css">
 </head>
 
-<!-- AI STATEMENT BUTTON -->
+
+<body>
+
+    <!-- AI STATEMENT BUTTON -->
 <div id="aiButton">AI</div>
 
 <!-- AI OVERLAY -->
@@ -29,7 +32,47 @@
     </div>
 </div>
 
-<body>
+<!-- UNCERTAINTY OVERLAY -->
+<div id="uncertaintyOverlay">
+    <div class="ai-box">
+
+        <span id="closeUncertainty">&times;</span>
+
+        <h1>Uncertainty System</h1>
+
+        <p>
+        This website is not static.  
+        It responds to how and when you interact with it.
+        </p>
+
+        <p>
+        Your current level of uncertainty is calculated using two factors:
+        time of day and browsing behavior.
+        </p>
+
+        <p>
+        Late hours increase unpredictability, while your scrolling patterns
+        reveal how controlled or chaotic your interaction is.
+        </p>
+
+        <p>
+        As uncertainty increases, the layout becomes more unstable,
+        colors distort, and elements drift further from their original position.
+        </p>
+
+        <p>
+        The system does not aim for efficiency.  
+        It explores how instability can shape experience.
+        </p>
+
+        <div class="project-details">
+            <span>Input: Time + Scroll</span>
+            <span>Output: Layout + Color + Typography</span>
+            <span>Concept: Designed instability</span>
+        </div>
+
+    </div>
+</div>
     
     <!-- Loading indicator while fetching weather -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -40,7 +83,7 @@
     </div>
 
     <!-- Weather Info Display -->
-    <div class="weather-info">
+    <div class="weather-info" id="uncertaintyButton">
         <div class="weather-icon" id="weatherIcon">🌤️</div>
         <div class="weather-text">
             <span id="weatherDesc">Loading weather...</span>

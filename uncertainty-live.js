@@ -268,6 +268,45 @@ let glitchTarget
 
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', () => {
+
+    // AI POPUP
+    const aiBtn = document.getElementById("aiButton")
+    const aiOverlay = document.getElementById("aiOverlay")
+    const closeAI = document.getElementById("closeAI")
+
+    aiBtn.addEventListener("click", () => {
+        aiOverlay.classList.add("active")
+    })
+
+    closeAI.addEventListener("click", () => {
+        aiOverlay.classList.remove("active")
+    })
+
+    aiOverlay.addEventListener("click", (e) => {
+        if(e.target === aiOverlay){
+            aiOverlay.classList.remove("active")
+        }
+    })
+
+
+    // UNCERTAINTY POPUP
+    const uncertaintyBtn = document.getElementById("uncertaintyButton")
+    const uncertaintyOverlay = document.getElementById("uncertaintyOverlay")
+    const closeUncertainty = document.getElementById("closeUncertainty")
+
+    uncertaintyBtn.addEventListener("click", () => {
+        uncertaintyOverlay.classList.add("active")
+    })
+
+    closeUncertainty.addEventListener("click", () => {
+        uncertaintyOverlay.classList.remove("active")
+    })
+
+    uncertaintyOverlay.addEventListener("click", (e) => {
+        if(e.target === uncertaintyOverlay){
+            uncertaintyOverlay.classList.remove("active")
+        }
+    })
     const layout = new UncertaintyLayout();
     glitchTarget = document.getElementById("glitchName")
 });
@@ -327,23 +366,4 @@ function updateGlitch(uncertainty){
     }, speed)
 }
 
-const aiBtn = document.getElementById("aiButton")
-const aiOverlay = document.getElementById("aiOverlay")
-const closeAI = document.getElementById("closeAI")
 
-// OPEN
-aiBtn.addEventListener("click", () => {
-    aiOverlay.classList.add("active")
-})
-
-// CLOSE BUTTON
-closeAI.addEventListener("click", () => {
-    aiOverlay.classList.remove("active")
-})
-
-// CLICK OUTSIDE
-aiOverlay.addEventListener("click", (e) => {
-    if(e.target === aiOverlay){
-        aiOverlay.classList.remove("active")
-    }
-})
