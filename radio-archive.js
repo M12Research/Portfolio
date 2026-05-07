@@ -18,7 +18,63 @@ audioUnlocked = true
 const songs = [
 
 
+/* WEEK 12 */
+
+{
+cover:"songs/Week 12/Covers/Cover.jpg",
+file:"songs/Week 12/05 - Raindance.mp3",
+artist:"Jazzbois",
+title:"Raindance",
+person:"Sam",
+week:"Week 12"
+},
+
 /* WEEK 11 */
+
+{
+cover:"songs/Week 11/Covers/Cover7.jpg",
+file:"songs/Week 11/Ulver - They're Coming! The Birds!.mp3",
+artist:"Ulver",
+title:"They're Coming! The Birds!",
+person:"Hannah",
+week:"Week 11"
+},
+
+{
+cover:"songs/Week 11/Covers/Cover6.jpg",
+file:"songs/Week 11/Jackson 5 - ABC.mp3",
+artist:"Jackson 5",
+title:"ABC",
+person:"Joost",
+week:"Week 11"
+},
+
+{
+cover:"songs/Week 11/Covers/Cover4.jpg",
+file:"songs/Week 11/Florence + The Machine - Choreomania.mp3",
+artist:"Florence + The Machine",
+title:"Choreomania",
+person:"Steef",
+week:"Week 11"
+},
+
+{
+cover:"songs/Week 11/Covers/Cover3.jpg",
+file:"songs/Week 11/A Tribe Called Quest - Lyrics to Go.mp3",
+artist:"A Tribe Called Quest",
+title:"Lyrics to Go",
+person:"Jelmer",
+week:"Week 11"
+},
+
+{
+cover:"songs/Week 11/Covers/Cover2.jpg",
+file:"songs/Week 11/¿Téo_ - Belong in the Sun (feat. Lido).mp3",
+artist:"¿Téo?",
+title:"Belong in the Sun (feat. Lido)",
+person:"Simone",
+week:"Week 11"
+},
 
 {
 cover:"songs/Week 11/Covers/Cover.jpg",
@@ -132,162 +188,162 @@ person:"Sam",
 week:"Week 9"
 },
 
-/* WEEK 8 */
-{
-cover:"songs/Week 8/Covers/Cover9.jpg",
-file:"songs/Week 8/Lily Allen - LDN.mp3",
-artist:"Lily Allen",
-title:"LDN",
-person:"Giulia",
-week:"Week 8"
-},
+// /* WEEK 8 */
+// {
+// cover:"songs/Week 8/Covers/Cover9.jpg",
+// file:"songs/Week 8/Lily Allen - LDN.mp3",
+// artist:"Lily Allen",
+// title:"LDN",
+// person:"Giulia",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover7.jpg",
-file:"songs/Week 8/RUBII - BOTB.mp3",
-artist:"RUBII",
-title:"BOTB",
-person:"Anne",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover7.jpg",
+// file:"songs/Week 8/RUBII - BOTB.mp3",
+// artist:"RUBII",
+// title:"BOTB",
+// person:"Anne",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover8.jpg",
-file:"songs/Week 8/KIDS SEE GHOSTS - Kids See Ghosts.mp3",
-artist:"KIDS SEE GHOSTS",
-title:"Kids See Ghosts",
-person:"Jelmer",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover8.jpg",
+// file:"songs/Week 8/KIDS SEE GHOSTS - Kids See Ghosts.mp3",
+// artist:"KIDS SEE GHOSTS",
+// title:"Kids See Ghosts",
+// person:"Jelmer",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover6.jpg",
-file:"songs/Week 8/03 Planet Caravan.mp3",
-artist:"Black Sabbath",
-title:"Planet Caravan",
-person:"Isidoris",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover6.jpg",
+// file:"songs/Week 8/03 Planet Caravan.mp3",
+// artist:"Black Sabbath",
+// title:"Planet Caravan",
+// person:"Isidoris",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover5.jpg",
-file:"songs/Week 8/The Black Eyed Peas - GIRL LIKE ME.mp3",
-artist:"The Black Eyed Peas",
-title:"GIRL LIKE ME",
-person:"Joost",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover5.jpg",
+// file:"songs/Week 8/The Black Eyed Peas - GIRL LIKE ME.mp3",
+// artist:"The Black Eyed Peas",
+// title:"GIRL LIKE ME",
+// person:"Joost",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover4.jpg",
-file:"songs/Week 8/Snowy White - Midnight Blues.mp3",
-artist:"Snowy White",
-title:"Midnight Blues",
-person:"Lara #",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover4.jpg",
+// file:"songs/Week 8/Snowy White - Midnight Blues.mp3",
+// artist:"Snowy White",
+// title:"Midnight Blues",
+// person:"Lara #",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover3.jpg",
-file:"songs/Week 8/Swarm Intelligence - Chromium Chambering.mp3",
-artist:"Swarm Intelligence",
-title:"Chromium Chambering",
-person:"Hannah",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover3.jpg",
+// file:"songs/Week 8/Swarm Intelligence - Chromium Chambering.mp3",
+// artist:"Swarm Intelligence",
+// title:"Chromium Chambering",
+// person:"Hannah",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover2.jpg",
-file:"songs/Week 8/RAYE - I Will Overcome.mp3",
-artist:"RAYE",
-title:"I Will Overcome",
-person:"Simone",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover2.jpg",
+// file:"songs/Week 8/RAYE - I Will Overcome.mp3",
+// artist:"RAYE",
+// title:"I Will Overcome",
+// person:"Simone",
+// week:"Week 8"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover.jpg",
-file:"songs/Week 8/Save Me.mp3",
-artist:"Marcus King",
-title:"Save Me",
-person:"Sam",
-week:"Week 8"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover.jpg",
+// file:"songs/Week 8/Save Me.mp3",
+// artist:"Marcus King",
+// title:"Save Me",
+// person:"Sam",
+// week:"Week 8"
+// },
 
-/* WEEK 7 */
-{
-cover:"songs/Week 7/Covers/Cover.jpg",
-file:"songs/Week 7/Madvillain - Meat Grinder.mp3",
-artist:"Madvillain",
-title:"Meat Grinder",
-person:"Jelmer",
-week:"Week 7"
-},
+// /* WEEK 7 */
+// {
+// cover:"songs/Week 7/Covers/Cover.jpg",
+// file:"songs/Week 7/Madvillain - Meat Grinder.mp3",
+// artist:"Madvillain",
+// title:"Meat Grinder",
+// person:"Jelmer",
+// week:"Week 7"
+// },
 
-{
-cover:"songs/Week 7/Covers/Cover2.jpg",
-file:"songs/Week 7/Ulver - The Future Sound of Music.mp3",
-artist:"Ulver",
-title:"The Future Sound of Music",
-person:"Hannah",
-week:"Week 7"
-},
+// {
+// cover:"songs/Week 7/Covers/Cover2.jpg",
+// file:"songs/Week 7/Ulver - The Future Sound of Music.mp3",
+// artist:"Ulver",
+// title:"The Future Sound of Music",
+// person:"Hannah",
+// week:"Week 7"
+// },
 
 
-/* WEEK 6 */
-{
-cover:"songs/Week 6/Covers/Cover6.jpg",
-file:"songs/Week 6/Villagers of Ioannina City - Father Sun.mp3",
-artist:"Villagers of Ioannina City",
-title:"Father Sun",
-person:"Isidoris",
-week:"Week 6"
-},
+// /* WEEK 6 */
+// {
+// cover:"songs/Week 6/Covers/Cover6.jpg",
+// file:"songs/Week 6/Villagers of Ioannina City - Father Sun.mp3",
+// artist:"Villagers of Ioannina City",
+// title:"Father Sun",
+// person:"Isidoris",
+// week:"Week 6"
+// },
 
-{
-cover:"songs/Week 6/Covers/Cover5.jpg",
-file:"songs/Week 6/Jack Kays - SLEEP WHEN I'M DEAD.mp3",
-artist:"Jack Kays",
-title:"SLEEP WHEN I'M DEAD",
-person:"Robin",
-week:"Week 6"
-},
+// {
+// cover:"songs/Week 6/Covers/Cover5.jpg",
+// file:"songs/Week 6/Jack Kays - SLEEP WHEN I'M DEAD.mp3",
+// artist:"Jack Kays",
+// title:"SLEEP WHEN I'M DEAD",
+// person:"Robin",
+// week:"Week 6"
+// },
 
-{
-cover:"songs/Week 6/Covers/Cover4.jpg",
-file:"songs/Week 6/Sef - De Machine.mp3",
-artist:"Sef",
-title:"De Machine",
-person:"Jelmer",
-week:"Week 6"
-},
+// {
+// cover:"songs/Week 6/Covers/Cover4.jpg",
+// file:"songs/Week 6/Sef - De Machine.mp3",
+// artist:"Sef",
+// title:"De Machine",
+// person:"Jelmer",
+// week:"Week 6"
+// },
 
-{
-cover:"songs/Week 6/Covers/Cover3.jpg",
-file:"songs/Week 6/aya - heat death.mp3",
-artist:"aya",
-title:"heat death",
-person:"Hannah",
-week:"Week 6"
-},
+// {
+// cover:"songs/Week 6/Covers/Cover3.jpg",
+// file:"songs/Week 6/aya - heat death.mp3",
+// artist:"aya",
+// title:"heat death",
+// person:"Hannah",
+// week:"Week 6"
+// },
 
-{
-cover:"songs/Week 6/Covers/Cover2.jpg",
-file:"songs/Week 6/Bad Bunny - LO QUE LE PASÓ A HAWAii.mp3",
-artist:"Bad Bunny",
-title:"LO QUE LE PASÓ A HAWAii",
-person:"Simone",
-week:"Week 6"
-},
+// {
+// cover:"songs/Week 6/Covers/Cover2.jpg",
+// file:"songs/Week 6/Bad Bunny - LO QUE LE PASÓ A HAWAii.mp3",
+// artist:"Bad Bunny",
+// title:"LO QUE LE PASÓ A HAWAii",
+// person:"Simone",
+// week:"Week 6"
+// },
 
-{
-cover:"songs/Week 6/Covers/Cover.jpg",
-file:"songs/Week 6/02 - Oh Frustration.mp3",
-artist:"AJ Fullerton",
-title:"Oh Frustration",
-person:"Sam",
-week:"Week 6"
-},
+// {
+// cover:"songs/Week 6/Covers/Cover.jpg",
+// file:"songs/Week 6/02 - Oh Frustration.mp3",
+// artist:"AJ Fullerton",
+// title:"Oh Frustration",
+// person:"Sam",
+// week:"Week 6"
+// },
 
     /* WEEK 5 */
 
