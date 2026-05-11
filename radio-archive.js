@@ -18,7 +18,45 @@ audioUnlocked = true
 const songs = [
 
 
+/* WEEK 13 */
+
+{
+cover:"songs/Week 13/Covers/Cover.jpg",
+file:"songs/Week 13/Soundgarden - Rhinosaur.mp3",
+artist:"Soundgarden",
+title:"Rhinosaur",
+person:"Sam",
+week:"Week 13"
+},
+
 /* WEEK 12 */
+
+{
+cover:"songs/Week 12/Covers/Cover4.jpg",
+file:"songs/Week 12/Shining - My Dying Drive.mp3",
+artist:"Shining",
+title:"My Dying Drive",
+person:"Hannah",
+week:"Week 12"
+},
+
+{
+cover:"songs/Week 12/Covers/Cover3.jpg",
+file:"songs/Week 12/Baby Keem - family ties.mp3",
+artist:"Baby Keem",
+title:"Family Ties",
+person:"Jelmer",
+week:"Week 12"
+},
+
+{
+cover:"songs/Week 12/Covers/Cover2.jpg",
+file:"songs/Week 12/Willem - Honderdduizend graden.mp3",
+artist:"Willem & Sef",
+title:"Honderdduizend Graden",
+person:"Giulia",
+week:"Week 12"
+},
 
 {
 cover:"songs/Week 12/Covers/Cover.jpg",
