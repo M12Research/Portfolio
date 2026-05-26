@@ -21,11 +21,101 @@ const songs = [
 /* WEEK 13 */
 
 {
-cover:"songs/Week 13/Covers/Cover.jpg",
-file:"songs/Week 13/Soundgarden - Rhinosaur.mp3",
-artist:"Soundgarden",
-title:"Rhinosaur",
+cover:"songs/Week 13/Covers/Cover11.jpg",
+file:"songs/Week 13/De La Soul - Me Myself and I.mp3",
+artist:"De La Soul",
+title:"Me Myself and I",
+person:"Roy",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover10.jpg",
+file:"songs/Week 13/VICKY - T-Shirt hoch Titten raus.mp3",
+artist:"VICKY",
+title:"T-Shirt hoch Titten raus",
+person:"Joost",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover9.jpg",
+file:"songs/Week 13/ROSALÍA - BULERÍAS.mp3",
+artist:"ROSALÍA",
+title:"BULERÍAS",
+person:"Jelmer",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover8.jpg",
+file:"songs/Week 13/Rollo Doherty - It's All Beautiful Rain.mp3",
+artist:"Rollo Doherty",
+title:"It's All Beautiful Rain",
 person:"Sam",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover7.jpg",
+file:"songs/Week 13/Rihanna - Man Down (Album Version).mp3",
+artist:"Rihanna",
+title:"Man Down",
+person:"Simone",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover6.jpg",
+file:"songs/Week 13/Ragana - Spare No Man.mp3",
+artist:"Ragana",
+title:"Spare No Man",
+person:"Hannah",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover5.jpg",
+file:"songs/Week 13/Nectar Woode - How It's Gotta Be.mp3",
+artist:"Nectar Woode",
+title:"How It's Gotta Be",
+person:"Giulia",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover4.jpg",
+file:"songs/Week 13/Kota the Friend - Long Beach II.mp3",
+artist:"Kota the Friend",
+title:"Long Beach II",
+person:"Koen",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover3.jpg",
+file:"songs/Week 13/Herman van Veen - Hilversum 3.mp3",
+artist:"Herman van Veen",
+title:"Hilversum 3",
+person:"Steef",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover2.jpg",
+file:"songs/Week 13/Free Nationals - Shibuya.mp3",
+artist:"Free Nationals",
+title:"Shibuya",
+person:"Isidoris",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover.jpg",
+file:"songs/Week 13/Billie Marten - La Lune.mp3",
+artist:"Billie Marten",
+title:"La Lune",
+person:"Anne",
 week:"Week 13"
 },
 
@@ -123,108 +213,108 @@ person:"Sam",
 week:"Week 11"
 },
 
-/* WEEK 10 */
+// /* WEEK 10 */
 
-{
-cover:"songs/Week 10/Covers/Cover5.jpg",
-file:"songs/Week 10/Ravyn Lenae - Reputation (feat. Dominic Fike).mp3",
-artist:"Ravyn Lenae",
-title:"Reputation (feat. Dominic Fike)",
-person:"Giulia",
-week:"Week 10"
-},
+// {
+// cover:"songs/Week 10/Covers/Cover5.jpg",
+// file:"songs/Week 10/Ravyn Lenae - Reputation (feat. Dominic Fike).mp3",
+// artist:"Ravyn Lenae",
+// title:"Reputation (feat. Dominic Fike)",
+// person:"Giulia",
+// week:"Week 10"
+// },
 
-{
-cover:"songs/Week 10/Covers/Cover2.jpg",
-file:"songs/Week 10/Amy Winehouse - Back To Black.mp3",
-artist:"Amy Winehouse",
-title:"Back To Black",
-person:"Joost",
-week:"Week 10"
-},
+// {
+// cover:"songs/Week 10/Covers/Cover2.jpg",
+// file:"songs/Week 10/Amy Winehouse - Back To Black.mp3",
+// artist:"Amy Winehouse",
+// title:"Back To Black",
+// person:"Joost",
+// week:"Week 10"
+// },
 
-{
-cover:"songs/Week 10/Covers/Cover3.jpg",
-file:"songs/Week 10/ROSALÍA - Sexo, Violencia y Llantas.mp3",
-artist:"ROSALÍA",
-title:"Sexo, Violencia y Llantas",
-person:"Jelmer",
-week:"Week 10"
-},
+// {
+// cover:"songs/Week 10/Covers/Cover3.jpg",
+// file:"songs/Week 10/ROSALÍA - Sexo, Violencia y Llantas.mp3",
+// artist:"ROSALÍA",
+// title:"Sexo, Violencia y Llantas",
+// person:"Jelmer",
+// week:"Week 10"
+// },
 
-{
-cover:"songs/Week 10/Covers/Cover4.jpg",
-file:"songs/Week 10/Teardrinker - To the Ones Whose Bodies Shall Shake the Heavens.mp3",
-artist:"Teardrinker",
-title:"To the Ones Whose Bodies Shall Shake the Heavens",
-person:"Hannah",
-week:"Week 10"
-},
+// {
+// cover:"songs/Week 10/Covers/Cover4.jpg",
+// file:"songs/Week 10/Teardrinker - To the Ones Whose Bodies Shall Shake the Heavens.mp3",
+// artist:"Teardrinker",
+// title:"To the Ones Whose Bodies Shall Shake the Heavens",
+// person:"Hannah",
+// week:"Week 10"
+// },
 
-{
-cover:"songs/Week 10/Covers/Cover.jpg",
-file:"songs/Week 10/Ze Roberto - Lotus 72 D.mp3",
-artist:"Ze Roberto",
-title:"Lotus 72 D",
-person:"Sam",
-week:"Week 10"
-},
+// {
+// cover:"songs/Week 10/Covers/Cover.jpg",
+// file:"songs/Week 10/Ze Roberto - Lotus 72 D.mp3",
+// artist:"Ze Roberto",
+// title:"Lotus 72 D",
+// person:"Sam",
+// week:"Week 10"
+// },
 
-/* WEEK 9 */
+// /* WEEK 9 */
 
-{
-cover:"songs/Week 9/Covers/Cover6.jpg",
-file:"songs/Week 9/The Who - Baba O'Riley.mp3",
-artist:"The Who",
-title:"Baba O'Riley",
-person:"Jelmer",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 9/Covers/Cover6.jpg",
+// file:"songs/Week 9/The Who - Baba O'Riley.mp3",
+// artist:"The Who",
+// title:"Baba O'Riley",
+// person:"Jelmer",
+// week:"Week 9"
+// },
 
-{
-cover:"songs/Week 9/Covers/Cover5.jpg",
-file:"songs/Week 9/Karkossyn - Covered In Sand.mp3",
-artist:"Karkossyn",
-title:"Covered In Sand",
-person:"Hannah",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 9/Covers/Cover5.jpg",
+// file:"songs/Week 9/Karkossyn - Covered In Sand.mp3",
+// artist:"Karkossyn",
+// title:"Covered In Sand",
+// person:"Hannah",
+// week:"Week 9"
+// },
 
-{
-cover:"songs/Week 9/Covers/Cover4.jpg",
-file:"songs/Week 9/Supershy - Keep It Rising.mp3",
-artist:"Supershy",
-title:"Keep It Rising",
-person:"Lara #",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 9/Covers/Cover4.jpg",
+// file:"songs/Week 9/Supershy - Keep It Rising.mp3",
+// artist:"Supershy",
+// title:"Keep It Rising",
+// person:"Lara #",
+// week:"Week 9"
+// },
 
-{
-cover:"songs/Week 8/Covers/Cover2.jpg",
-file:"songs/Week 9/RAYE - Click Clack Symphony. (feat. Hans Zimmer).mp3",
-artist:"RAYE",
-title:"Click Clack Symphony. (feat. Hans Zimmer)",
-person:"Simone",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 8/Covers/Cover2.jpg",
+// file:"songs/Week 9/RAYE - Click Clack Symphony. (feat. Hans Zimmer).mp3",
+// artist:"RAYE",
+// title:"Click Clack Symphony. (feat. Hans Zimmer)",
+// person:"Simone",
+// week:"Week 9"
+// },
 
-{
-cover:"songs/Week 9/Covers/Cover2.jpg",
-file:"songs/Week 9/Lily Allen - Trigger Bang (feat. Giggs).mp3",
-artist:"Lily Allen",
-title:"Trigger Bang (feat. Giggs)",
-person:"Giulia",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 9/Covers/Cover2.jpg",
+// file:"songs/Week 9/Lily Allen - Trigger Bang (feat. Giggs).mp3",
+// artist:"Lily Allen",
+// title:"Trigger Bang (feat. Giggs)",
+// person:"Giulia",
+// week:"Week 9"
+// },
 
-{
-cover:"songs/Week 9/Covers/Cover.jpg",
-file:"songs/Week 9/Novos Baianos - O samba da minha terra.mp3",
-artist:"Novos Baianos",
-title:"O Samba Da Minha Terra",
-person:"Sam",
-week:"Week 9"
-},
+// {
+// cover:"songs/Week 9/Covers/Cover.jpg",
+// file:"songs/Week 9/Novos Baianos - O samba da minha terra.mp3",
+// artist:"Novos Baianos",
+// title:"O Samba Da Minha Terra",
+// person:"Sam",
+// week:"Week 9"
+// },
 
 // /* WEEK 8 */
 // {
