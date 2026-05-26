@@ -18,6 +18,18 @@ audioUnlocked = true
 const songs = [
 
 
+    /* WEEK 15 */
+
+{
+cover:"songs/Week 15/Covers/Cover.jpg",
+file:"songs/Week 15/DeWolff - Night Train (Live).mp3",
+artist:"DeWolff",
+title:"Night Train",
+person:"Sam",
+week:"Week 15"
+},
+
+
 /* WEEK 14 */
 
 {
