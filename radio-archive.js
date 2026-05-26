@@ -18,7 +18,7 @@ audioUnlocked = true
 const songs = [
 
 
-/* WEEK 13 */
+/* WEEK 14 */
 
 {
 cover:"songs/Week 13/Covers/Cover11.jpg",
@@ -26,7 +26,7 @@ file:"songs/Week 13/De La Soul - Me Myself and I.mp3",
 artist:"De La Soul",
 title:"Me Myself and I",
 person:"Roy",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -35,7 +35,7 @@ file:"songs/Week 13/VICKY - T-Shirt hoch Titten raus.mp3",
 artist:"VICKY",
 title:"T-Shirt hoch Titten raus",
 person:"Joost",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -44,7 +44,7 @@ file:"songs/Week 13/ROSALÍA - BULERÍAS.mp3",
 artist:"ROSALÍA",
 title:"BULERÍAS",
 person:"Jelmer",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -53,7 +53,7 @@ file:"songs/Week 13/Rollo Doherty - It's All Beautiful Rain.mp3",
 artist:"Rollo Doherty",
 title:"It's All Beautiful Rain",
 person:"Sam",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -62,7 +62,7 @@ file:"songs/Week 13/Rihanna - Man Down (Album Version).mp3",
 artist:"Rihanna",
 title:"Man Down",
 person:"Simone",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -71,7 +71,7 @@ file:"songs/Week 13/Ragana - Spare No Man.mp3",
 artist:"Ragana",
 title:"Spare No Man",
 person:"Hannah",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -80,7 +80,7 @@ file:"songs/Week 13/Nectar Woode - How It's Gotta Be.mp3",
 artist:"Nectar Woode",
 title:"How It's Gotta Be",
 person:"Giulia",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -89,7 +89,7 @@ file:"songs/Week 13/Kota the Friend - Long Beach II.mp3",
 artist:"Kota the Friend",
 title:"Long Beach II",
 person:"Koen",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -98,7 +98,7 @@ file:"songs/Week 13/Herman van Veen - Hilversum 3.mp3",
 artist:"Herman van Veen",
 title:"Hilversum 3",
 person:"Steef",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -107,7 +107,7 @@ file:"songs/Week 13/Free Nationals - Shibuya.mp3",
 artist:"Free Nationals",
 title:"Shibuya",
 person:"Isidoris",
-week:"Week 13"
+week:"Week 14"
 },
 
 {
@@ -116,6 +116,44 @@ file:"songs/Week 13/Billie Marten - La Lune.mp3",
 artist:"Billie Marten",
 title:"La Lune",
 person:"Anne",
+week:"Week 14"
+},
+
+/* WEEK 13 */
+
+{
+cover:"songs/Week 13/Covers/Cover14.jpg",
+file:"songs/Week 13/GENER8ION - STORM II.mp3",
+artist:"GENER8ION",
+title:"STORM II",
+person:"Guus",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover13.jpg",
+file:"songs/Week 13/Oklou - viscus.mp3",
+artist:"Oklou",
+title:"viscus",
+person:"Steef",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover12.jpg",
+file:"songs/Week 13/Youth Code - Consuming Guilt.mp3",
+artist:"Consuming Guilt",
+title:"My Dying Drive",
+person:"Hannah",
+week:"Week 13"
+},
+
+{
+cover:"songs/Week 13/Covers/Cover15.jpg",
+file:"songs/Week 13/Soundgarden - Rhinosaur.mp3",
+artist:"Soundgarden",
+title:"Rhinosaur",
+person:"Sam",
 week:"Week 13"
 },
 
