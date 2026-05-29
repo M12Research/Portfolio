@@ -21,6 +21,42 @@ const songs = [
     /* WEEK 15 */
 
 {
+cover:"songs/Week 15/Covers/Cover5.jpg",
+file:"songs/Week 15/THE ANXIETY - Meet Me At Our Spot.mp3",
+artist:"THE ANXIETY",
+title:"Meet Me At Our Spot",
+person:"Giulia",
+week:"Week 15"
+},
+
+{
+cover:"songs/Week 15/Covers/Cover4.jpg",
+file:"songs/Week 15/Lady Gaga - RUNWAY.mp3",
+artist:"Lady Gaga",
+title:"RUNWAY",
+person:"Simone",
+week:"Week 15"
+},
+
+{
+cover:"songs/Week 15/Covers/Cover3.jpg",
+file:"songs/Week 15/De Nachtwacht - Cowboys.mp3",
+artist:"De Nachtwacht",
+title:"Cowboys",
+person:"Joost",
+week:"Week 15"
+},
+
+{
+cover:"songs/Week 15/Covers/Cover2.jpg",
+file:"songs/Week 15/Bad Bunny - BAILE INoLVIDABLE.mp3",
+artist:"Bad Bunny",
+title:"BAILE INoLVIDABLE",
+person:"Jelmer",
+week:"Week 15"
+},    
+
+{
 cover:"songs/Week 15/Covers/Cover.jpg",
 file:"songs/Week 15/DeWolff - Night Train (Live).mp3",
 artist:"DeWolff",
