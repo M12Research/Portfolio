@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="aboutb.css">
+    <style>
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ── Hero ── */
+        .about-hero {
+            padding: 10rem 0 5rem;
+            border-bottom: 4px solid #000;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            text-shadow: -2px 0 red, 2px 0 cyan;
+        }
+
+        .about-hero h2 {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Shared block layout (used by PIV and PPF) ── */
+        .content-block {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0 3rem;
+            padding: 3.5rem 0;
+            border-top: 4px solid #000;
+        }
+
+        .content-block:last-of-type {
+            border-bottom: 4px solid #000;
+        }
+
+        .block-left {
+            padding-top: 0.2rem;
+        }
+
+        .block-left .block-num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .block-left h3 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .block-right p {
+            font-size: 1rem;
+            line-height: 1.85;
+            opacity: 0.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .block-right p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Vision points inside block-right ── */
+        .vision-point {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid #000;
+        }
+
+        .vision-point:last-child {
+            margin-bottom: 0;
+        }
+
+        .vision-point h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .vision-point p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        /* ── Project link ── */
+        .project-link {
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+            transition: opacity 0.2s;
+        }
+
+        .project-link:hover {
+            opacity: 0.5;
+        }
+
+        /* ── Photo Gallery ── */
+        .gallery-section {
+            padding: 4rem 0;
+            border-bottom: 4px solid #000;
+        }
+
+        .gallery-section h3 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border-bottom: 4px solid #000;
+            padding-bottom: 0.3rem;
+        }
+
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .gallery-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .gallery-col.center { gap: 0; }
+
+        .photo-slot {
+            background: #e8e8e8;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-slot.tall   { aspect-ratio: 3/4; }
+        .photo-slot.square { aspect-ratio: 1/1; }
+        .photo-slot.hero   { aspect-ratio: 4/5; }
+
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.3s;
+        }
+
+        .photo-slot img:hover { filter: grayscale(0%); }
+
+        .photo-caption {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-top: 0.4rem;
+        }
+
+        /* ── Contact ── */
+        .contact-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: #000;
+            color: #fff;
+            margin: 0 -2rem -4rem -2rem;
+        }
+
+        .contact-section h3 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-section p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+        .contact-section a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 2px solid #fff;
+        }
+
+        .contact-section a:hover { opacity: 0.6; }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a { font-weight: 700; font-size: 1.1rem; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .content-block {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .gallery-layout {
+                grid-template-columns: 1fr;
+            }
+            .contact-section {
+                margin: 0 -1.5rem -2rem -1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-button">← Back</a>
+
+    <main class="about-container">
+
+        <!-- Hero -->
+        <section class="about-hero">
+            <p class="section-label">About</p>
+            <h1 id="glitchName">SAM THEELEN</h1>
+            <h2>Industrial Designer</h2>
+        </section>
+
+        <!-- Vision -->
+        <div class="content-block">
+            <div class="block-left">
+                <p class="block-num">01</p>
+                <h3>Vision</h3>
+            </div>
+            <div class="block-right">
+                <div class="vision-point">
+                    <h4>My design philosophy is punk: question everything, provoke convention, make things differently.</h4>
+                    <p>Every technological shift or emerging technology resets the defaults. New paradigms arrive carrying their own assumptions. The role I see for design is to catch that moment before those assumptions harden into new conventions, and to make explicit what would otherwise be inherited without question.
+                    </p>
+                </div>
+                <div class="vision-point">
+                    <h4>X</h4>
+                    <p>I learn by taking things apart. A guitar, a motorcycle, a music streamer, each one is a set of answers to questions that were never made explicit. Disassembly makes those questions legible. Once I understand how something was built, I can see what it assumes: about materials, about maintenance, about ownership. And once the assumption is visible, I can ask whether it needs to be true.
+                    </p>
+                </div>
+                <div class="vision-point">
+                    <h4>X</h4>
+                    <p>My approach is first-person and material. I build, live with the design, and let the making reveal what theory cannot anticipate. The unfamiliar object that results is tangible and reveals a question. 
+                    </p>
+                </div>
+                <div class="vision-point">
+                    <h4>X</h4>
+                    <p>Next to that, I believe designers working with AI today have the responsibility to disclose the is resources they consume in generating and in making. I propose a resource statement: where did the materials come from, what was their previous life, and what is their next one? 
+                    </p>
+                </div>
+                <div class="vision-point">
+                    <h4>X</h4>
+                    <p>With every technological shift, every new paradigm, we need to ask: are we building what we actually want, or just what we've been conditioned to want?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professional Identity -->
+        <div class="content-block">
+            <div class="block-left">
+                <p class="block-num">02</p>
+                <h3>Professional Identity</h3>
+            </div>
+            <div class="block-right">
+                <p>I design and build interactive objects that challenge convention. I identify assumptions embedded in the designs that we encounter on the daily and research why we gravitate toward familiar solutions. I then challenge them by following a different path, resulting in unfamiliar realities. I question the defaults of the every day. My strength is translating theoretical ideas into tangible experiences. If theory suggests design a paradigm shift, I like to get my hands dirty and try to actually do it. It is my way of digesting the material, and putting it to the test. 
+                </p>
+                <p>
+                    I am a maker who learns through material engagement and iteration. I like to physically break down objects to learn how they are designed and build them in my own different way. These practices are closely related to the studio methodology and first person design methods, which I prefer to use. I discover a lot of paths on the way, and find trails that suit me to develop further. With a background in instrument making, tinkering with vehicles and creative use of AI, I have a toolbox of realization skills; mechanical engineering, electrical engineering and algorithmic design. I work from an aesthetic perspective, believing function emerges from compelling form.
+                </p>
+            </div>
+        </div>
+
+        <!-- Past -->
+        <div class="content-block" id="past-present-future">
+            <div class="block-left">
+                <p class="block-num">Past</p>
+                <h3>Where I come from</h3>
+            </div>
+            <div class="block-right">
+                <p>At the start of the master I already had a fairly broad skillset. I have worked in quite a number of different squads, but my interest had always kind of been in the Artifice squad. I think interaction with emerging technologies are very intriguing, because it makes me feel I am making discoveries that actually change things and makes us learn how to shape the future, because you are sort of making the future already. At the beginning of the master I wasn’t really sure what to do with it yet. I did not consider myself doing any worthy design research, since I am mainly a maker. I could be a thinker too, but only through making mainly. In Constructive Design Research I first encountered the Studio Methodology, and it really fitted me after I found out how it worked. I could produce meaningful knowledge while combining it with the thing I am good at: Making. Next to that we have the very interesting topic of AI uncertainty. I have worked with AI before in my bachelor's, and with its uncertainty too! I always found it fascinating to push the limits of this technology and see what it would produce. In CDR I learned how to work with this uncertainty and developed a number of methods of using it as a design material. I felt like we had only touched the surface of this subject, so I started researching more in my M1.2, using the same studio methodology. This was very cool. I started a whole trajectory into this. I was trying to publish a paper at DIS about CDR in the same time as doing M1.2. Very interesting, and I learned a lot from this. It also grounded my work more, since I gained more knowledge about what my work is about. Unfortunately we got rejected but we tried again for DRS, in combination with my M1.2 and got approved. It was great. Also I got scouted by Philips at my M1.2 project demo day for joining in my M2.1. I went for it, I was up for a challenge, I wanted to see what it is like to work for a big company, and I wanted to test whether I can work with AI uncertainty in a company/more situated applied way. This was very meaningful and I learned a lot I could only have learned through experience. However, I also learned it was not for me.  Especially in a big medical company, there is not much space for AI uncertainty, I couldn’t implement it meaningfully. But I did learn how businesses work, learn a ton about AI integration, interactions, emerging technologies etc. Super inspiring and I wouldn’t want to have missed that. Finally I wanted to do a big ambitious project in the end. A lot of people told me that it was not the best idea and it was too big and people where a bit skeptical, but that only wanted to make me do it more. I wanted to put uncertainty to the ultimate test and make something big and ambitious in one project: a motorcycle using uncertainty.</p>
+            </div>
+        </div>
+
+        <!-- Present -->
+        <div class="content-block">
+            <div class="block-left">
+                <p class="block-num">Present</p>
+                <h3>What I'm doing now</h3>
+            </div>
+            <div class="block-right">
+                <p>Expertise Areas
+Technology and Realization is where I feel most at home, and it works best when it is combined from Creativity and Aesthetics. The two are the same impulse expressed differently. I work from an aesthetic starting point, but I have always needed to build what I imagine, which means the making skills had to follow.
+<p> Over time, diving completely into different technologies, guitars, motorcycles, music streamers, midi controllers, has given me something I find hard to name but easy to use: I can see a path toward realization fairly early, even when a project is still open and conceptual. With the Calcucaster, I knew I could build a midi instrument that stayed programmable, that a touchscreen and a keyboard could be hooked into it, and that it would remain open for interpretation. I had never built exactly that before, but I had dissected enough similar objects to know the ballpark. That instinct comes from accumulated disassembly. </p>
+<p>Math, Data and Computing sits underneath most of what I make, less as a discipline in itself and more as a set of tools that extend what is physically possible. Knowing what different coding languages, software environments, and APIs can do, means I can make design decisions with a realistic sense of what is achievable. I know the basics of quite some languages (Python, Java, C, html, css), and the development of vibe coding in the meantime, I know how to make pretty much anything. With the motorcycle, I knew what signals the system expected, which meant I could hack into it and test different interaction styles that would slot in without fighting the existing architecture. MDC gives me the vision to see those connections before I start building.</p>
+<p>N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜAC is probably the clearest example of where Creativity and Aesthetics becomes the primary argument. The project is a deep dive into uncertainty as design material, and it takes real creative discipline to work with uncertainty meaningfully. An image generator does not give you an answer; it gives you something to interpret. Using one to name the project was not a gimmick, it was a way of practicing what the project was about. The CalcuCaster came out of that process, and it shows: the aesthetics are considered and resolved, the object is product-ready, and the form carries the question rather than just illustrating it. That is what I mean when I say function emerges from compelling form, the aesthetic conviction is part of the argument.</p>
+<p>User and Society enters my work through the conversations that objects start. When musicians encountered the CalcuCaster during demo day or other presentations, many of them were engaged by it, wanted to touch it or to show them how it works. The same happened with motorcyclists responding to the motorcycle project. Coming at a familiar archetype from a different angle made the design question legible to the people who know that archetype best. That is the kind of U&S research I am drawn to: first-person, material, and grounded in real responses to real objects. I am also increasingly interested in what U&S means in the context of AI tools. How designers relate to them, whether uncertainty is welcomed or avoided, and how we stay creative without distributing the thinking entirely to a machine. These feel like urgent questions for the field right now. (also beyond designers)</p>
+<p>Business and Entrepreneurship is the area I have the most complicated relationship with (miss nog aanpassen). I started the Design Leadership and Entrepreneurship master track and left it,  because the framing did not fit how I actually work. In practice I am almost always running multiple projects simultaneously, constantly looking for materials, deals, and opportunities to make the next thing happen. I find resourcefulness genuinely satisfying ,sourcing a moped destined for scrap, finding a near-worthless FM radio unit, negotiating a donor motorcycle. That is entrepreneurial thinking, even if it does not look like a business plan. I know this is an area I need to articulate better, but I think the honest version is this: the drive is there, the form it takes is just more workshop than boardroom. (nog cheffen)
+</p>
+            </div>
+        </div>
+
+        <!-- Future -->
+        <div class="content-block">
+            <div class="block-left">
+                <p class="block-num">Future</p>
+                <h3>Where I'm heading</h3>
+            </div>
+            <div class="block-right">
+                <p>In the future, I would like to continue with the projects I have. I am considering further developing my <a href="project-2.html" class="project-link">M1.2 project</a> into a standalone interactive instrument (currently, it relies on various software and a connection to a computer). Additionally, I am enthusiastic about further developing my <a href="project-5.html" class="project-link">motorcycle</a> into something ridable and gauging the public's reaction to it.</p>
+                <p>That is why I would like to enter DDW 2026 with these objects. During my internship at <a href="project-3.html" class="project-link">Philips</a>, I realized that a large company is not a suitable option for me at this moment. Therefore, I aim to start something of my own or join a small startup, while simultaneously continuing to develop my projects and remaining academically active in this field.</p>
+                <p>I have noticed that I find writing papers very inspiring and derive a lot of satisfaction from them, and that they are also well received.</p>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <section class="gallery-section">
+            <p class="section-label">04</p>
+            <h3>In the room</h3>
+
+            <div class="gallery-layout">
+                <div class="gallery-col">
+                    <div>
+                        <div class="photo-slot tall">
+                            <img src="images/Me/20260608_112831361_iOS.jpg" alt="Presenting at DRS 2026">
+                        </div>
+                        <p class="photo-caption">Presenting at DRS 2026</p>
+                    </div>
+                    <div>
+                        <div class="photo-slot square">
+                            <img src="images/Me/Verven.png" alt="Workshop">
+                        </div>
+                        <p class="photo-caption">Making things</p>
+                    </div>
+                </div>
+
+                <div class="gallery-col center">
+                    <div>
+                        <div class="photo-slot hero">
+                            <img src="images/Me/GAE09102.png" alt="Sam Theelen">
+                        </div>
+                        <p class="photo-caption">Me</p>
+                    </div>
+                </div>
+
+                <div class="gallery-col">
+                    <div>
+                        <div class="photo-slot square">
+                            <img src="images/Me/GAE09230a.png" alt="Presenting at DDW 2025">
+                        </div>
+                        <p class="photo-caption">Presenting at DDW 2025</p>
+                    </div>
+                    <div>
+                        <div class="photo-slot tall">
+                            <img src="images/Me/IMG_3356.jpeg" alt="Presenting at AI Symposium">
+                        </div>
+                        <p class="photo-caption">Presenting at Design & AI Symposium</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact-section">
+            <h3>Let's work together</h3>
+            <p><a href="mailto:s.i.theelen@student.tue.nl">s.i.theelen@student.tue.nl</a></p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/sam-theelen/">LinkedIn</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    const glitchChars = [
+        "̴","̵","̶","̷","̸","̹","̺","̻","̼","͓","͔","͕","͖",
+        "͗","͘","͙","͚","͛","͜","͝","͞","͟","͠"
+    ];
+
+    const originalText = "SAM THEELEN";
+    const glitchTarget = document.getElementById("glitchName");
+
+    function glitchText(text, intensity) {
+        let result = "";
+        for (let char of text) {
+            if (Math.random() < intensity) {
+                let corrupted = char;
+                const count = Math.floor(intensity * 5);
+                for (let i = 0; i < count; i++) {
+                    corrupted += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                }
+                result += corrupted;
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    }
+
+    function updateGlitch(uncertainty) {
+        let intensity = uncertainty / 100;
+        let speed = 200 - (intensity * 180);
+        clearInterval(window.glitchLoop);
+        window.glitchLoop = setInterval(() => {
+            glitchTarget.innerText = glitchText(originalText, intensity);
+        }, speed);
+    }
+
+    const now = new Date();
+    const hour = now.getHours();
+    const isWeekend = (now.getDay() === 0 || now.getDay() === 6);
+    let uncertainty = 50;
+
+    if (hour >= 2 && hour < 6)                      uncertainty = 270;
+    else if (hour >= 23 || hour < 2)                uncertainty = 130;
+    else if (hour >= 6 && hour < 9)                 uncertainty = 90;
+    else if (hour >= 9 && hour < 17 && !isWeekend)  uncertainty = 30;
+    else if (hour >= 9 && hour < 17 && isWeekend)   uncertainty = 70;
+    else if (hour >= 17 && hour < 23 && !isWeekend) uncertainty = 70;
+    else if (hour >= 17 && hour < 23 && isWeekend)  uncertainty = 60;
+
+    updateGlitch(uncertainty);
+    </script>
+
+</body>
+</html>

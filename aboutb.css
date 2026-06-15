@@ -1,0 +1,64 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #000;
+    line-height: 1.6;
+}
+
+/* Vision points: alternating tilt */
+.vision-point {
+    transform: rotate(-0.4deg);
+}
+.vision-point:nth-child(2n) {
+    transform: rotate(0.5deg);
+}
+
+/* Back button */
+.back-button {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    z-index: 1000;
+    padding: 1rem 1.5rem;
+    border: 2px solid #000;
+    background: rgba(255, 255, 255, 0.95);
+    transform: rotate(-2deg);
+    box-shadow: 6px 6px 0 black;
+    transition: all 0.3s;
+}
+.back-button:hover {
+    background: #000;
+    color: #fff;
+    transform: rotate(2deg) translateX(-5px);
+}
+
+/* About Container */
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem 2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-container {
+        padding: 0 1.5rem 2rem 1.5rem;
+    }
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+    }
+}
