@@ -1,306 +1,167 @@
-/* Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-body {
-    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #0f1419 0%, #1a2128 50%, #0a0d11 100%);
-    min-height: 100vh;
-    color: #fff;
-    overflow-x: hidden;
+body{
+font-family:'Space Grotesk',sans-serif;
+background:#0a0a0a;
+color:#fff;
+overflow:hidden;
 }
 
-/* Back Button */
-.back-button {
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-    color: #fff;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 1.2rem;
-    z-index: 1000;
-    padding: 1rem 1.5rem;
-    border: 2px solid #FF8C42;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s;
+body::after{
+content:'';
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+radial-gradient(circle at 20% 30%, rgba(255,140,66,0.05), transparent 40%),
+radial-gradient(circle at 80% 70%, rgba(0,168,197,0.05), transparent 40%);
+
+pointer-events:none;
 }
 
-.back-button:hover {
-    background: #FF8C42;
-    color: #000;
-    transform: translateX(-5px);
+/* BACK BUTTON */
+.back-button{
+position:fixed;
+top:2rem;
+left:2rem;
+z-index:1000;
+color:#fff;
+text-decoration:none;
+border:1px solid #fff;
+padding:0.8rem 1.2rem;
+font-weight:700;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+transition:0.3s;
 }
 
-/* Project Header */
-.project-header {
-    text-align: center;
-    padding: 6rem 2rem 4rem 2rem;
+.back-button:hover{
+background:#fff;
+color:#000;
 }
 
-.project-header h1 {
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    font-weight: 900;
-    margin-bottom: 1rem;
-    background: linear-gradient(90deg, #FF8C42 0%, #4A90E2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* FIELD */
+#field{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+overflow:hidden;
 }
 
-.project-header .subtitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    opacity: 0.7;
+/* FRAGMENTS */
+.fragment{
+position:absolute;
+cursor:pointer;
+transition:transform 0.4s ease, opacity 0.4s ease;
+
+--depth: calc(var(--z) * 1px);
+transform: translateZ(var(--depth));
 }
 
-/* Timeline Container */
-.timeline-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 2rem 8rem 2rem;
-    position: relative;
+.fragment img{
+width:220px;
+height:auto;
+display:block;
+box-shadow:0 20px 60px rgba(0,0,0,0.8);
+transition:0.3s;
 }
 
-/* Timeline Entry */
-.timeline-entry {
-    display: grid;
-    grid-template-columns: 1fr 4px 1fr;
-    gap: 4rem;
-    margin-bottom: 6rem;
-    position: relative;
+/* HOVER */
+.fragment:hover img{
+transform:scale(1.05) rotate(-1deg);
 }
 
-/* Left Side - Content */
-.timeline-content {
-    text-align: right;
-    padding-right: 2rem;
+/* FLOATING ANIMATION */
+@keyframes float{
+0%,100%{transform:translateY(0px);}
+50%{transform:translateY(-15px);}
 }
 
-.timeline-content .date {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #FF8C42;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1rem;
+.fragment{
+animation:float 6s ease-in-out infinite;
 }
 
-.timeline-content h3 {
-    font-size: 2rem;
-    font-weight: 900;
-    margin-bottom: 1rem;
-    color: #fff;
+/* FOCUS MODE */
+#focus{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:999;
+text-align:center;
 }
 
-.timeline-content p {
-    font-size: 1rem;
-    line-height: 1.8;
-    opacity: 0.85;
+#focus img{
+max-width:75vw;
+max-height:75vh;
+transform:scale(1.1);
+transition:0.4s;
 }
 
-/* Timeline Line */
-.timeline-line {
-    position: relative;
-    background: linear-gradient(180deg, #FF8C42 0%, #4A90E2 100%);
-    width: 4px;
+#focusText{
+margin-top:2rem;
+background:rgba(0,0,0,0.7);
+padding:1.5rem;
+border:1px solid rgba(255,255,255,0.1);
 }
 
-.timeline-line::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #FF8C42;
-    border: 4px solid #0f1419;
-    box-shadow: 0 0 20px rgba(255, 140, 66, 0.6);
+#focusText h2{
+font-size:2rem;
+margin-bottom:1rem;
 }
 
-.timeline-line.final::before {
-    background: #4A90E2;
-    box-shadow: 0 0 20px rgba(74, 144, 226, 0.6);
+#focusText p{
+opacity:0.7;
+line-height:1.8;
 }
 
-/* Right Side - Images */
-.timeline-image {
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.4s ease;
+/* DIM OTHERS */
+.dim{
+opacity:0.15;
 }
 
-.timeline-image:hover {
-    transform: scale(1.03);
-    z-index: 10;
+/* HIDDEN */
+.hidden{
+display:none;
 }
 
-.timeline-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border: 3px solid #FF8C42;
-    box-shadow: 
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        0 0 0 1px rgba(255, 140, 66, 0.2);
-    transition: all 0.4s ease;
+.system-ui{
+position:fixed;
+top:2rem;
+right:2rem;
+font-size:0.8rem;
+opacity:0.5;
+text-align:right;
+pointer-events:none;
 }
 
-.timeline-image:hover img {
-    border-color: #4A90E2;
-    box-shadow: 
-        0 30px 80px rgba(0, 0, 0, 0.7),
-        0 0 40px rgba(74, 144, 226, 0.4);
+#connections{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:2;
 }
 
-/* Image Caption - Shows on hover */
-.image-caption {
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    border: 2px solid #FF8C42;
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-    font-weight: 700;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s, bottom 0.3s;
-    pointer-events: none;
-    backdrop-filter: blur(10px);
+.line{
+stroke:rgba(255,255,255,0.15);
+stroke-width:1;
+opacity:0;
+transition:0.3s;
 }
 
-.timeline-image:hover .image-caption {
-    opacity: 1;
-    bottom: -20px;
-}
-
-/* Gulf Color Accents */
-.timeline-entry:nth-child(odd) .timeline-line::before {
-    background: #FF8C42;
-    box-shadow: 0 0 20px rgba(255, 140, 66, 0.6);
-}
-
-.timeline-entry:nth-child(even) .timeline-line::before {
-    background: #4A90E2;
-    box-shadow: 0 0 20px rgba(74, 144, 226, 0.6);
-}
-
-.timeline-entry:nth-child(odd) .timeline-image img {
-    border-color: #FF8C42;
-}
-
-.timeline-entry:nth-child(even) .timeline-image img {
-    border-color: #4A90E2;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .timeline-entry {
-        gap: 2rem;
-    }
-    
-    .timeline-content {
-        padding-right: 1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .back-button {
-        top: 1rem;
-        left: 1rem;
-        font-size: 1rem;
-        padding: 0.75rem 1rem;
-    }
-    
-    .project-header {
-        padding: 4rem 1.5rem 2rem 1.5rem;
-    }
-    
-    .project-header h1 {
-        font-size: 2rem;
-    }
-    
-    .project-header .subtitle {
-        font-size: 1.2rem;
-    }
-    
-    /* Stack vertically on mobile */
-    .timeline-entry {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        margin-bottom: 4rem;
-    }
-    
-    .timeline-content {
-        text-align: left;
-        padding-right: 0;
-        padding-left: 2rem;
-        border-left: 4px solid #FF8C42;
-        order: 2;
-    }
-    
-    .timeline-line {
-        display: none;
-    }
-    
-    .timeline-image {
-        order: 1;
-        margin-bottom: 1rem;
-    }
-    
-    .image-caption {
-        position: relative;
-        opacity: 1;
-        bottom: 0;
-        transform: none;
-        margin-top: 1rem;
-        white-space: normal;
-    }
-}
-
-/* Optional: Subtle background texture */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 9999;
-}
-
-/* Animated gradient accent */
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 30% 20%, rgba(255, 140, 66, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 70% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-    animation: gulfGlow 20s ease-in-out infinite;
-}
-
-@keyframes gulfGlow {
-    0%, 100% { 
-        opacity: 0.3;
-    }
-    50% { 
-        opacity: 0.6;
-    }
+.line.active{
+opacity:1;
+stroke:rgba(255,255,255,0.4);
 }

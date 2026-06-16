@@ -433,3 +433,40 @@ body::before {
 .artifact:hover .artifact-label {
     opacity: 1;
 }
+
+
+/* Expertise badges */
+.expertise-badges {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.15rem 0.7rem;
+    border: 2px solid #000;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* Color codes per expertise area — extend as needed */
+.badge-business   { background: #d63b2f; } /* M&E - red */
+.badge-math   { background: #1b6fd6; } /* E&E - blue */
+.badge-user  { background: #2f9e44; } /* C&A - green */
+.badge-technology        { background: #b8860b; } /* C&F - amber */
+.badge-creativity    { background: #6741d9; } /* R&D - purple */
+
+@media (max-width: 768px) {
+    .expertise-badges {
+        position: static;
+        margin-bottom: 1.5rem;
+        top: auto;
+        right: auto;
+    }
+}
