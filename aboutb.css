@@ -62,3 +62,59 @@ body {
         padding: 0.75rem 1rem;
     }
 }
+
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 0.3rem 0.6rem;
+    border: 2px solid #000;
+    color: #fff;
+    vertical-align: middle;
+    margin-left: 0.75rem;
+}
+
+.badge-business    { background: #d63b2f; } /* B&E - red */
+.badge-math        { background: #1b6fd6; } /* MDC - blue */
+.badge-user        { background: #2f9e44; } /* U&S - green */
+.badge-technology  { background: #b8860b; } /* T&R - amber */
+.badge-creativity  { background: #6741d9; } /* C&A - purple */
+
+/* ── References ── */
+.references-section {
+    padding: 4rem 0;
+    border-bottom: 4px solid #000;
+}
+
+.references-section h3 {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-bottom: 2rem;
+    display: inline-block;
+    border-bottom: 4px solid #000;
+    padding-bottom: 0.3rem;
+}
+
+.references-list {
+    list-style: none;
+    counter-reset: ref-counter;
+}
+
+.references-list li {
+    counter-increment: ref-counter;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+}
+
+.references-list li::before {
+    content: "[" counter(ref-counter) "]";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    opacity: 0.5;
+}

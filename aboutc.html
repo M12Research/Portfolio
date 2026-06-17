@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="aboutb.css">
+    <style>
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ── Hero ── */
+        .about-hero {
+            padding: 10rem 0 5rem;
+            border-bottom: 4px solid #000;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            text-shadow: -2px 0 red, 2px 0 cyan;
+        }
+
+        .about-hero h2 {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 400;
+            opacity: 0.5;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Page wrapper: extends wider than content to allow margin images ── */
+        .page-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ── Margin image ── */
+        .margin-img {
+            position: absolute;
+            width: 160px;
+            border: 2px solid #000;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            background: #e8e8e8;
+        }
+
+        .margin-img.left  { right: calc(100% + 2rem); }
+        .margin-img.right { left:  calc(100% + 2rem); }
+
+        /* slight rotations for depth */
+        .margin-img.tilt-a { transform: rotate(-2deg); }
+        .margin-img.tilt-b { transform: rotate( 1.5deg); }
+        .margin-img.tilt-c { transform: rotate(-1deg); }
+        .margin-img.tilt-d { transform: rotate( 2.5deg); }
+        .margin-img.tilt-e { transform: rotate(-1.8deg); }
+
+        .margin-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(15%);
+            transition: filter 0.3s, transform 0.3s;
+        }
+
+        .margin-img:hover img {
+            filter: grayscale(0%);
+        }
+
+        .margin-img:hover {
+            transform: rotate(0deg) scale(1.04);
+            z-index: 10;
+        }
+
+        .margin-img .img-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            min-height: 120px;
+        }
+
+        .margin-img .img-placeholder span {
+            font-size: 2rem;
+            opacity: 0.15;
+        }
+
+        .margin-img .img-placeholder p {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.3;
+            margin-top: 0.4rem;
+        }
+
+        .margin-img figcaption {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            padding: 0.4rem 0.5rem;
+            border-top: 1px solid #000;
+            background: #fff;
+        }
+
+        /* ── Shared block layout ── */
+        .content-block {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 0 3rem;
+            padding: 3.5rem 0;
+            border-top: 4px solid #000;
+        }
+
+        .content-block:last-of-type {
+            border-bottom: 4px solid #000;
+        }
+
+        .block-left {
+            padding-top: 0.2rem;
+        }
+
+        .block-left .block-num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .block-left h3 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .block-right p {
+            font-size: 1rem;
+            line-height: 1.85;
+            opacity: 0.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .block-right p:last-child { margin-bottom: 0; }
+
+        /* ── Vision points ── */
+        .vision-point {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid #000;
+        }
+
+        .vision-point:last-child { margin-bottom: 0; }
+
+        .vision-point h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .vision-point p {
+            font-size: 0.95rem;
+            line-height: 1.75;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        /* ── Project link ── */
+        .project-link {
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 2px solid #000;
+            transition: opacity 0.2s;
+        }
+
+        .project-link:hover { opacity: 0.5; }
+
+        /* ── Photo Gallery ── */
+        .gallery-section {
+            padding: 4rem 0;
+            border-bottom: 4px solid #000;
+        }
+
+        .gallery-section h3 {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            display: inline-block;
+            border-bottom: 4px solid #000;
+            padding-bottom: 0.3rem;
+        }
+
+        .gallery-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .gallery-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .gallery-col.center { gap: 0; }
+
+        .photo-slot {
+            background: #e8e8e8;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .photo-slot.tall   { aspect-ratio: 3/4; }
+        .photo-slot.square { aspect-ratio: 1/1; }
+        .photo-slot.hero   { aspect-ratio: 4/5; }
+
+        .photo-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(20%);
+            transition: filter 0.3s;
+        }
+
+        .photo-slot img:hover { filter: grayscale(0%); }
+
+        .photo-caption {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-top: 0.4rem;
+        }
+
+        /* ── Contact ── */
+        .contact-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: #000;
+            color: #fff;
+            margin: 0 -2rem -4rem -2rem;
+        }
+
+        .contact-section h3 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-section p { font-size: 1.2rem; margin-bottom: 2rem; }
+
+        .contact-section a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 2px solid #fff;
+        }
+
+        .contact-section a:hover { opacity: 0.6; }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a { font-weight: 700; font-size: 1.1rem; }
+
+        /* ── Responsive: hide margin images on narrow screens ── */
+        @media (max-width: 1300px) {
+            .margin-img { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .content-block {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .gallery-layout { grid-template-columns: 1fr; }
+            .contact-section { margin: 0 -1.5rem -2rem -1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-button">← Back</a>
+
+    <main class="about-container">
+
+        <!-- Hero -->
+        <section class="about-hero">
+            <p class="section-label">About</p>
+            <h1 id="glitchName">SAM THEELEN</h1>
+            <h2>Industrial Designer</h2>
+        </section>
+
+        <!-- ── Vision ── -->
+        <div class="page-wrapper">
+
+            <!-- Margin image: left, next to Vision -->
+            <a href="project-2.html" class="margin-img left tilt-a" style="top: 3.5rem; aspect-ratio: 1/1;">
+                <img src="images/Me/PXL_20260608_144242008.jpg" alt="Edinburgh">
+                <figcaption>Calcucaster In Edinburgh</figcaption>
+            </a>
+
+            <div class="content-block">
+                <div class="block-left">
+                    <p class="block-num">01</p>
+                    <h3>Vision</h3>
+                </div>
+                <div class="block-right">
+                <div class="vision-point">
+                    <p>
+                        Every system I encounter, I want to understand by pushing it past where it's meant to go. AI is different: it is a black box, its workings hidden, understood only by probing what you put in against what comes out. I push it the same way I push anything else.
+                    </p>
+                </div>
+                <div class="vision-point">
+                
+                    <p>
+                        This is also why I keep ownership of the process and the output. AI converges if used conventionally. It pulls toward the statistical center of its training data, toward the most expected/certain output, toward archetypes everyone already recognizes. That convergence produces sameness, and sameness is the opposite of ownership: if the result is the average of everyone else's prompt, it isn't really yours. So I deliberately push AI toward defamiliarization instead [3, 5]. I use AI for its uncertainty: a generated result is material to react to. That way I keep agency of the process. This is also where I see my own practice feeding back into design knowledge: every project that treats AI's uncertainty as material adds a data point to how that approach actually performs in practice [5].
+                    </p>
+                </div>
+                <div class="vision-point">
+              
+                    <p>
+                        Practically, AI has also become one of my most useful repair tools: troubleshooting old hardware and software is often what makes the hours not worth it, and AI has lowered that threshold considerably. Used this way, AI can contribute in the longevity of products and allow users to not get locked out of their products.
+                    </p>
+                </div>
+                <div class="vision-point">
+                
+                    <p>
+                        That same commitment to longevity runs through the rest of how I work. I believe people discard products less because they break and more because they stop feeling anything for them. Jonathan Chapman's work on emotionally durable design argues that products are often discarded before they are physically worn out, simply because their design feels out of fashion or out of step with the moment [4]. So rather than disguise wear, glitches, or rough edges, I design with them visible. I believe in designs that show its repairs and quirks asks something of its owner, and that demand is what keeps people attached. 
+                    </p>
+                </div>
+                <div class="vision-point">
+                  
+                    <p>
+                        That belief only holds if the object can actually be maintained, which is why right to repair matters so much to me. I am consistently frustrated by hardware abandoned because a company stops supporting it. Working electronics turned to waste by a software decision. Every system I build resists that: vintage bikes, guitars, and amplifiers chosen because their mechanisms are legible and serviceable, paired with Arduino and Raspberry Pi platforms precisely because they stay open and repairable indefinitely. I think that belongs inside user-centered design as much as usability does. A product that locks its owner out is not serving the user.
+                    </p>
+                    
+                </div>
+
+                <div class="vision-point">
+                  
+                    <p>
+                        The same logic governs materials. I almost always reuse items. I get them from thrift stores, Marktplaats, things companies and friends are about to discard. I only produce new parts when there is genuinely no alternative. The Calcucaster's housing was the exception, since the project depended on visibly highlighting the glitches of a 3D model, which only fabrication could deliver. Outside cases like that, salvaged material with a careful refinish holds up as well as anything new, at a fraction of the footprint.
+                    </p>
+                    
+                </div>
+
+                <div class="vision-point">
+                  
+                    <p>
+                       If I expect this kind of transparency from the systems and objects I take apart, I owe the same transparency in what I build. That same standard should apply to what I make. An AI statement: disclosing where and how AI shaped a project, including its resource and climate cost, not just its convenience. A resource statement: where materials came from, what their previous life was, what their next one will be. Neither is paperwork. Both are design decisions, and they deserve the same scrutiny as any other.
+                    </p>
+                    
+                </div>
+            </div>
+            </div>
+
+        </div>
+
+        <!-- ── Professional Identity ── -->
+        <div class="page-wrapper">
+
+            
+            <!-- Margin image: left, next to Vision -->
+            <a href="project-4.html" class="margin-img right tilt-a" style="top: 3.5rem; aspect-ratio: 5/4;">
+                <img src="images/Me/IMG_6148.jpg" alt="Working on Tomos">
+                <figcaption>→ Tomos Restomod</figcaption>
+            </a>
+
+            <div class="content-block">
+                <div class="block-left">
+                    <p class="block-num">02</p>
+                    <h3>Professional Identity</h3>
+                </div>
+                <div class="block-right">
+                    <p>
+                        I design and build interactive objects that challenge convention. I identify an assumption embedded in something familiar, challenge it, then disrupt the result until it reveals something new. 
+                </p>
+                <p>
+                    This is the same instinct that runs through my Vision: defaults are choices and someone has to keep proving that. I question the defaults of the everyday, then push past the point where the familiar response stops working.
+                </p>
+                <p>
+My strength is translating these theoretical and speculative ideas into tangible, product-quality experiences. If a theory suggests a paradigm shift, I get my hands dirty and actually build it. That is how I digest material and test whether the idea holds up outside the page. The same applies to emerging technologies. I push AI systems past their intended use, questioning what they actually do instead of what they are supposed to do, and finding their limits by probing them directly. This is where my Vision's argument about ownership and defamiliarization gets tested in practice. It is also how I communicate, by showing rather than explaining. Working in teams sharpened this. Explaining conceptual, often unfinished ideas to collaborators pushed me to pair the explanation with something visible early, before a concept was fully resolved.
+                </p>
+                <p>
+                    I am a maker who learns through material engagement and iteration. I like to physically break down objects to understand how they are designed, then build them differently in my own way. This is closely related to studio methodology [1] and first person design methods [2], which I prefer to use. With a background in instrument making, tinkering with vehicles, and creative use of AI, I move between mechanical, electrical, and algorithmic realization depending on what a project needs. This is my strongest Expertise Area, Technology and Realization, and it never works alone. I combine it with Creativity and Aesthetics all the time: T&R gives me the range to build almost anything I imagine, and C&A decides what is actually worth building.
+                </p>
+                <p>
+                    Working first person is also my clearest weakness. It produces strong, specific insight, but that insight is situated in my own experience and harder to generalize to other users or contexts. I am also not naturally suited to the organizational side of design research, setting up workshops, scheduling interviews, managing paperwork. I noticed this clearly during my internship. Bureaucratic process breaks my flow, and I tend to work around rules instead of through them. That same instinct drives the disruption at the center of my practice, but it is a real limitation when a project needs structured, repeatable process instead of situated depth. Recognizing this pushes my project goals toward collaborations that pair my first person depth with structured user research I am not naturally inclined to run myself.
+                </p>
+                
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Past ── -->
+        <div class="page-wrapper">
+
+            <!-- Margin image: left, next to Past -->
+            <a href="project-4.html" class="margin-img left tilt-c" style="top: 3.5rem; aspect-ratio: 3/4;">
+                <img src="images/Studio Uncertainty/Chork.jpg" alt="Early work">
+                <div class="img-placeholder"><span>◻</span><p>Chork</p></div>
+                <figcaption>Chork</figcaption>
+            </a>
+
+            <a href="project-2.html" class="margin-img right tilt-d" style="top: 3.5rem; aspect-ratio: 3/4;">
+                <img src="images/N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜA̴C/GAE09115.png" alt="Early work">
+                <div class="img-placeholder"><span>◻</span><p>Calcucaster</p></div>
+                <figcaption>Calcucaster</figcaption>
+            </a>
+
+            <div class="content-block" id="past-present-future">
+                <div class="block-left">
+                    <p class="block-num">03</p>
+                    <h3>Past</h3>
+                </div>
+                <div class="block-right">
+                <p>At the start of the master, I had a fairly broad skillset but did not see myself as someone doing real design research. I was mainly a maker, and a thinker only through making. Constructive Design Research changed that. Encountering Studio Methodology there meant I could produce meaningful knowledge through the thing I was already good at, and once I found that fit, I kept building on it in M1.2. I co-authored a paper on this work, rejected from DIS, then accepted to DRS [5], which grounded the direction further. Every project since has been a chance to push the same approach: new materials, new questions, new uncertainties, the same underlying method getting wider and more my own each time.</p>
+                    
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ── Present ── -->
+        <div class="page-wrapper">
+
+            <!-- Margin image: right, next to Present -->
+            <a class="margin-img right tilt-d" style="top: 3.5rem; aspect-ratio: 2/1;">
+                <img src="images/Other2/DIUET.png" alt="DIUET">
+                <!-- <div class="img-placeholder"><span>◻</span><p>Current project</p></div> -->
+                <figcaption>DIUET</figcaption>
+            </a>
+
+            <a href="project-6.html" class="margin-img left tilt-c" style="top: 25.5rem; aspect-ratio: 2/1;">
+                <img src="images/Tune In/Demoday-03.jpg" alt="Tune In">
+                <!-- <div class="img-placeholder"><span>◻</span><p>Current project</p></div> -->
+                <figcaption>Tune In</figcaption>
+            </a>
+
+            
+            <a href="project-8.html" class="margin-img right tilt-d" style="top: 85.5rem; aspect-ratio: 2/1;">
+                <img src="images/FM3/FM3-07.jpg" alt="FM3">
+                <!-- <div class="img-placeholder"><span>◻</span><p>Current project</p></div> -->
+                <figcaption>FM3</figcaption>
+            </a>
+
+            <a class="margin-img left tilt-c" style="top: 127.5rem; aspect-ratio: 2/1;">
+                <img src="images/Other2/VPC.png" alt="Value Proposition Canvas FABBS" >
+                <!-- <div class="img-placeholder"><span>◻</span><p>Current project</p></div> -->
+                <figcaption>VPC FABBS</figcaption>
+            </a>
+
+            <a class="margin-img right tilt-d" style="top: 127.5rem; aspect-ratio: 2/1;">
+                <img src="images/Other2/SB.png" alt="Story Board Bol" >
+                <!-- <div class="img-placeholder"><span>◻</span><p>Current project</p></div> -->
+                <figcaption>SB Bol</figcaption>
+            </a>
+
+            
+
+            <div class="content-block">
+                <div class="block-left">
+                    <p class="block-num">04</p>
+                    <h3>Present</h3>
+                </div>
+                <div class="block-right">
+                    <h1>Expertise Areas [EA]</h1>
+                    <h3>Technology & Realization <span class="badge badge-technology">T&R</span></h3>
+                            <p>
+T&R is my strongest expertise area, and it works best when combined with C&A. These two are the same impulse expressed differently: an aesthetic idea only becomes real once I can actually build it, so the making skills had to keep pace with what I wanted to imagine. This way of working aligns with Constructive Design Research (CDR), where construction itself becomes the means of producing knowledge [6]. Over the course of the master I have built that realization skillset across a wide range of materials and methods: styrofoam modeling, metalworking, woodworking, 3D printing, and Aruco marker-based interaction in Designing Interfaces Using Emerging Technologies (DIUET). <a href="project-6.html" class="project-link">M1.1</a>, <a href="project-2.html" class="project-link">M1.2</a>, and <a href="project-4.html" class="project-link">CDR</a> pushed this further into full design processes built around AI uncertainty, where I adjusted and printed AI-generated forms in Blender and returned repeatedly to interface design for music instruments.
+</p><p> Over time, diving completely into different technologies, guitars, motorcycles, music streamers, midi controllers, has given me something: I can see a path toward realization fairly early, even when a project is still open and conceptual. With the <a href="project-2.html" class="project-link">CalcuCaster</a>, I knew I could build a midi instrument that stayed programmable, that a touchscreen and a keyboard could be hooked into it, and that it would remain open for interpretation. I had never built exactly that before, but I had dissected enough similar objects to know the ballpark. That instinct comes from accumulated disassembly.
+                            </p>
+                    <h3>Creativity & Aesthetics <span class="badge badge-creativity">C&A</span></h3>
+                    
+                            <p> 
+<a href="project-2.html" class="project-link">N̴OIO̷B̴V̷K̷̤̞̘͎̣͂͆͗̑͆̇ҜAC</a> is one clear example of where C&A becomes the primary argument, but the EA runs much wider than that single project. Working aesthetically, to me, means being drawn to expressive shapes and forms, and finding ways to make uncertainty itself visible and compelling [5]. It also means I never use a tool as given. Whether it is an image generator, a camera, a video editor, or a piece of presentation software, I push past its default settings until the tool starts producing something that feels like mine rather than like everyone else's output. That same instinct runs across video, photography, poster design, renders, and graphic work generally, beyond object design. Even a project's name shows this: an image generator's glitched output became the zalgo text I still use. Taking uncertainty and making it mine, carried into the Calcucaster, and the rest of my identity as designer. Building a visual and professional identity this way, by questioning and reclaiming the tools themselves, has become as central to C&A for me as the objects that result from it. This thinking can be seen in other projects as well (<a href="project-6.html" class="project-link">M1.1</a>, <a href="project-4.html" class="project-link">CDR</a>, <a href="project-1a.html" class="project-link">M2.2</a>)
+                            </p>
+                    <h3>Math, Data & Computing <span class="badge badge-math">MDC</span></h3>
+                            <p>
+MDC sits underneath most of what I make, as a set of tools that extend what is physically possible. I know the basics of several languages, Python, Java, C, HTML, and CSS. Combine that with the rise of vibe coding, and that base has become enough to build almost anything I can picture. This EA threads through nearly every project: linking interfaces, DAWS, Arduino, and VST inputs in <a href="project-2.html" class="project-link">M1.2</a>, working with computer vision and ArUco markers in DIUET, writing my first real Python in the <a href="project-8.html" class="project-link">FM3 Tuner</a> project, coding with computer vision and linking ESP32 modules in  <a href="project-3.html" class="project-link">M2.1</a>. MDC gives me the vision to see those connections before I start building.
+                            </p>
+                    <h3>User & Society <span class="badge badge-user">U&S</span></h3>
+                            <p>
+User and Society enters my work through the conversations objects start. Coming at a familiar archetype, a guitar, a motorcycle, from a different angle makes the design question legible to people who know that archetype well. This connects to how people perceive what an object lets them do, exactly what I test when I put an unfamiliar version in front of someone who knows the familiar one intimately. I worked with this directly in User Experience Theory and Practice, building a PIV alongside service blueprints, journey maps, and personas, and again in <a href="project-2.html" class="project-link">M1.2</a> through affordance mapping for an interface meant to embrace uncertainty rather than resolve it. <a href="project-3.html" class="project-link">M2.1</a> extended this into intent-based user interfaces, a growing area of interaction design research concerned with how systems interpret what a person is trying to achieve rather than the literal steps they take [7]. I am increasingly drawn to what U&S means for AI tools specifically: whether uncertainty is welcomed or avoided, and how we stay creative without handing the thinking entirely to a machine.
+                            </p>
+                    <h3>Business & Entrepreneurship <span class="badge badge-business">B&E</span></h3>
+                            <p>
+B&E was an area I found challenging to settle into. I started the Design Leadership and Entrepreneurship master track and left it, because the formal framing did not match how I actually work. What I do instead draws directly on my other EAs: my T&R knowledge base lets me spot what a discarded objects or affordable parts could become before others see the potential, and C&A is often what lets me find those connections in the first place. I am always on the lookout to upcycle used products, which make quite ambitious projects, like building a motorcycle by myself, possible. In Design Entrepreneurship, working with <a href="https://fabbs.nl/#home" class="project-link">FABBS</a>, I engaged with the more structured side directly, business model and battery management system considerations within a real client relationship. In UETP, working with <a href="https://essense.eu/cases/bol-cx-monitoring-system/" class="project-link">Essense</a> for Bol, and later during my <a href="project-3.html" class="project-link">Philips</a> internship, I saw that structure operating inside an actual company, and confirmed that I am driven more by resourceful, opportunity-finding entrepreneurship. The form it takes is more workshop than meeting room. This mode of working has more in common with lean startup thinking, testing an idea quickly and cheaply against real conditions, than with formal business planning [8].
+                            </p>
+                <p>
+                </p>
+            </div>
+            </div>
+
+        </div>
+
+        <!-- ── Future ── -->
+        <div class="page-wrapper">
+
+            <!-- Margin image: left, next to Future -->
+            <a href="project-1a.html" class="margin-img left tilt-e" style="top: 3.5rem; aspect-ratio: 3/4;">
+                <img src="images/FMP/Prototypeaaa28.05-2-2.jpg" alt="Future direction">
+                <!-- <div class="img-placeholder"><span>◻</span><p>Future direction</p></div> -->
+                <figcaption>→ NOIO</figcaption>
+            </a>
+
+            <div class="content-block">
+                <div class="block-left">
+                    <p class="block-num">05</p>
+                    <h3>Future</h3>
+                </div>
+                <div class="block-right">
+                    <!-- <p>In the future, I would like to continue with the projects I have. I am considering further developing my <a href="project-2.html" class="project-link">M1.2 project</a> into a standalone interactive instrument (currently, it relies on various software and a connection to a computer). Additionally, I am enthusiastic about further developing my <a href="project-5.html" class="project-link">motorcycle</a> into something ridable and gauging the public's reaction to it.</p>
+                    <p>That is why I would like to enter DDW 2026 with these objects. During my internship at <a href="project-3.html" class="project-link">Philips</a>, I realized that a large company is not a suitable option for me at this moment. Therefore, I aim to start something of my own or join a small startup, while simultaneously continuing to develop my projects and remaining academically active in this field.</p>
+                    <p>I have noticed that I find writing papers very inspiring and derive a lot of satisfaction from them, and that they are also well received.</p> -->
+                    <p>I want to keep developing the projects I already have. I also committed to making the <a href="project-1a.html" class="project-link">Motorcycle</a> actually rideable and putting it in front of the public to see how people respond to it in real conditions. I have signed up to show it at DDW 2026's ID Expo, and I want to bring the <a href="project-2.html" class="project-link">M1.2</a> instrument somewhere similar. I want to push it toward a standalone instrument that stands on its own. The response it got in Edinburgh was strong enough that the next step is testing it directly with musicians.
+                        <p>I am taking Interactive Materiality and Unexpected Material Engagement because both expand on something I already do: working from the material itself. Interactive Materiality should sharpen how I design with material as an interface. Unexpected Material Engagement pushes my existing salvage habit further, into the full life cycle of a material, where it comes from and what happens to it after.
+                        </p><p>The <a href="project-3.html" class="project-link">Philips</a> internship taught me that a large company is not where I want to be right now. I would rather start something of my own or join a small team, while continuing my own projects and staying academically active. Writing papers has turned out to be something I enjoy, and the response so far suggests that side is worth continuing alongside the making. 
+                      </p>I am also planning a summer mini project as super user for Digital Craftsmanship, testing a set of AI tools built for bag making, a chance to push tools made by on this faculty, and improve one of my favorite courses.
+
+
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- References -->
+<section class="references-section">
+    <p class="section-label">06</p>
+    <h3>References</h3>
+    <ol class="references-list">
+        <li>Oogjes, D. and Wakkary, R. 2022. Weaving Stories: Toward Repertoires for Designing Things. CHI Conference on Human Factors in Computing Systems (New Orleans LA USA, Apr. 2022), 1–21. https://doi.org/10.1145/3491102.3501901
+</li>
+        <li>Tomico, O., V. O. Winthagen, and M. M. G. van Heist. 2012. Designing for, with or within: 1st, 2nd and 3rd person points of view on designing for systems. In Proceedings of the 7th Nordic Conference on Human-Computer Interaction: Making Sense Through Design (NordiCHI '12). Association for Computing Machinery, New York, NY, USA, 180–188. https://doi.org/10.1145/2399016.2399045</li>
+        <li>Bell, G., Blythe, M. and Sengers, P. 2005. Making by making strange: Defamiliarization and the design of domestic technologies. ACM Trans. Comput.-Hum. Interact. 12, 2 (June 2005), 149–173. https://doi.org/10.1145/1067860.1067862.</li>
+        <li>Chapman, J. 2005. Emotionally durable design: objects, experiences, and empathy. Earthscan, London.</li>
+        <li>Theelen, S., Talamini, G., Op het Veld, R., Sparidans, D., Benjamin, J.J., and Wensveen, S. (2026) Uncertainty in the studio: AI as a material in the design of tangible products, in Simeone, L., Gray, C. M., Verhoeven, A., de Götzen, A., Bakırlıoğlu, Y., Zohar, H., Stead, M., and Buwert, P. (eds.), DRS2026: Edinburgh, 8–12 June, Edinburgh, United Kingdom. https://doi.org/10.21606/drs.2026.1288</li>
+        <li>Koskinen, Ilpo & Zimmerman, John & Binder, Thomas & Redström, Johan & Wensveen, Stephan. 2011. Design Research Through Practice: From the Lab, Field, and Showroom. https://doi.org/10.1109/TPC.2013.2274109 </li>
+        <li>Ding, Z. 2024. Towards Intent-based User Interfaces: Charting the Design Space of Intent-AI Interactions Across Task Types. arXiv:2404.18196</li>   
+        <li>Ries, E. 2011. The Lean Startup. Crown Business, New York, NY.</li>
+    </ol>
+</section>
+
+        <!-- Photo Gallery -->
+        <section class="gallery-section">
+            <p class="section-label">07</p>
+            <h3>In the room</h3>
+
+            <div class="gallery-layout">
+                <div class="gallery-col">
+                    <div>
+                        <div class="photo-slot tall">
+                            <img src="images/Me/20260608_112831361_iOS.jpg" alt="Presenting at DRS 2026">
+                        </div>
+                        <p class="photo-caption">Presenting at DRS 2026</p>
+                    </div>
+                    <div>
+                        <div class="photo-slot square">
+                            <img src="images/Me/Verven.png" alt="Workshop">
+                        </div>
+                        <p class="photo-caption">Making things</p>
+                    </div>
+                </div>
+
+                <div class="gallery-col center">
+                    <div>
+                        <div class="photo-slot hero">
+                            <img src="images/Me/GAE09102.png" alt="Sam Theelen">
+                        </div>
+                        <p class="photo-caption">Me</p>
+                    </div>
+                </div>
+
+                <div class="gallery-col">
+                    <div>
+                        <div class="photo-slot square">
+                            <img src="images/Me/GAE09230a.png" alt="Presenting at DDW 2025">
+                        </div>
+                        <p class="photo-caption">Presenting at DDW 2025</p>
+                    </div>
+                    <div>
+                        <div class="photo-slot tall">
+                            <img src="images/Me/IMG_3356.jpeg" alt="Presenting at AI Symposium">
+                        </div>
+                        <p class="photo-caption">Presenting at Design & AI Symposium</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact-section">
+            <h3>Let's work together</h3>
+            <p><a href="mailto:s.i.theelen@student.tue.nl">s.i.theelen@student.tue.nl</a></p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/sam-theelen/">LinkedIn</a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    const glitchChars = [
+        "̴","̵","̶","̷","̸","̹","̺","̻","̼","͓","͔","͕","͖",
+        "͗","͘","͙","͚","͛","͜","͝","͞","͟","͠"
+    ];
+
+    const originalText = "SAM THEELEN";
+    const glitchTarget = document.getElementById("glitchName");
+
+    function glitchText(text, intensity) {
+        let result = "";
+        for (let char of text) {
+            if (Math.random() < intensity) {
+                let corrupted = char;
+                const count = Math.floor(intensity * 5);
+                for (let i = 0; i < count; i++) {
+                    corrupted += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+                }
+                result += corrupted;
+            } else {
+                result += char;
+            }
+        }
+        return result;
+    }
+
+    function updateGlitch(uncertainty) {
+        let intensity = uncertainty / 100;
+        let speed = 200 - (intensity * 180);
+        clearInterval(window.glitchLoop);
+        window.glitchLoop = setInterval(() => {
+            glitchTarget.innerText = glitchText(originalText, intensity);
+        }, speed);
+    }
+
+    const now = new Date();
+    const hour = now.getHours();
+    const isWeekend = (now.getDay() === 0 || now.getDay() === 6);
+    let uncertainty = 50;
+
+    if (hour >= 2 && hour < 6)                      uncertainty = 270;
+    else if (hour >= 23 || hour < 2)                uncertainty = 130;
+    else if (hour >= 6 && hour < 9)                 uncertainty = 90;
+    else if (hour >= 9 && hour < 17 && !isWeekend)  uncertainty = 30;
+    else if (hour >= 9 && hour < 17 && isWeekend)   uncertainty = 70;
+    else if (hour >= 17 && hour < 23 && !isWeekend) uncertainty = 70;
+    else if (hour >= 17 && hour < 23 && isWeekend)  uncertainty = 60;
+
+    updateGlitch(uncertainty);
+    </script>
+
+</body>
+</html>
