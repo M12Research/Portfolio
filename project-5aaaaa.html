@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOMOS A35</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --orange:    #f16412;
+            --orange-dim:#a84400;
+            --gulf-blue: #00a3c4;
+            --amber:     #f0a500;
+            --dark:      #080808;
+            --panel:     #0f0f0f;
+            --panel2:    #141414;
+            --border:    #2a2a2a;
+            --text:      #c8c8c8;
+            --text-dim:  #555;
+            --old-blue:  #0000ff;
+            --scan:      rgba(255,255,255,0.015);
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* scan lines */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 2px,
+                var(--scan) 2px, var(--scan) 4px
+            );
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* CRT noise */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9997;
+        }
+
+        /* ── Back button ── */
+        .back-button {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            color: var(--orange);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            z-index: 2000;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--orange-dim);
+            background: rgba(8,8,8,0.92);
+            transition: all 0.2s;
+        }
+        .back-button:hover { background: var(--orange); color: var(--dark); }
+
+        /* ── HUD bar ── */
+        .hud-bar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--orange) 50%, var(--gulf-blue) 50%);
+            z-index: 500;
+        }
+
+        /* ── Main layout ── */
+        .blacklist-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            min-height: 100vh;
+            padding-top: 3px;
+            transition: grid-template-columns 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .blacklist-layout.expanded {
+            grid-template-columns: 70vw 1fr;
+        }
+
+        /* ══════════════════════════════════════
+           LEFT PANEL — portrait + gallery expand
+        ══════════════════════════════════════ */
+        .portrait-panel {
+            background: var(--panel);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 3px;
+            height: calc(100vh - 3px);
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        /* header */
+        .portrait-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .portrait-header .rank-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        .portrait-header .rank-num {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--orange);
+            line-height: 1;
+        }
+
+        /* ── Portrait image (default) ── */
+        .portrait-img {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background: #0a0a0a;
+            cursor: pointer;
+        }
+
+        .portrait-img > img.main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: saturate(0.75) contrast(1.05);
+            display: block;
+            transition: filter 0.3s, transform 0.5s;
+        }
+
+        .portrait-img:hover > img.main-img {
+            filter: saturate(1) contrast(1.05);
+            transform: scale(1.03);
+        }
+
+        /* Gulf stripe */
+        .portrait-stripe {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--orange) 50%, var(--gulf-blue) 50%);
+            z-index: 2;
+        }
+
+        /* name overlay */
+        .portrait-name {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            right: 1.25rem;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .portrait-name .vehicle-name {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 0.9;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.95);
+        }
+
+        .portrait-name .vehicle-name em {
+            font-style: normal;
+            color: var(--orange);
+        }
+
+        .portrait-name .vehicle-sub {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-top: 0.35rem;
+        }
+
+        /* gradient fade */
+        .portrait-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 45%;
+            background: linear-gradient(transparent, var(--panel));
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* scroll hint inside gallery */
+        .gallery-scroll-hint {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+        }
+
+        /* ── Gallery overlay (inside portrait panel) ── */
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s 0.3s;
+            z-index: 10;
+        }
+
+        .blacklist-layout.expanded .gallery-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gallery-overlay-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .gallery-overlay-header span {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        .gallery-close {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.2rem 0.4rem;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+        }
+        .gallery-close:hover { color: #fff; }
+
+        /* main featured image */
+        .gallery-featured {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-featured img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: #000;
+            transition: opacity 0.25s;
+        }
+
+        .gallery-featured .feat-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.8);
+            color: var(--text);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .gallery-featured .feat-caption .feat-year {
+            color: var(--orange);
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+        }
+
+        /* nav arrows */
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            z-index: 5;
+            user-select: none;
+        }
+        .gallery-nav:hover { background: var(--orange); color: #fff; }
+        .gallery-nav.prev { left: 0.75rem; }
+        .gallery-nav.next { right: 0.75rem; }
+
+        /* thumbnail strip */
+        .gallery-thumbs {
+            display: flex;
+            gap: 0.4rem;
+            padding: 0.75rem 1rem;
+            overflow-x: auto;
+            flex-shrink: 0;
+            border-top: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .gallery-thumbs::-webkit-scrollbar { height: 2px; }
+        .gallery-thumbs::-webkit-scrollbar-thumb { background: var(--orange); }
+
+        .g-thumb {
+            flex: 0 0 56px;
+            height: 42px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s, opacity 0.2s;
+            opacity: 0.5;
+        }
+
+        .g-thumb.active { border-color: var(--orange); opacity: 1; }
+        .g-thumb:hover  { opacity: 0.9; }
+
+        .g-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.5);
+        }
+
+        .g-thumb.active img { filter: saturate(1); }
+
+        /* ══════════════════════════════════════
+           RIGHT PANEL
+        ══════════════════════════════════════ */
+        .data-panel {
+            background: var(--dark);
+            overflow-y: auto;
+        }
+
+        .data-header {
+            padding: 1.75rem 2.5rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-header h1 {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+
+        /* ── Stats ── */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-cell {
+            padding: 1.5rem 2rem;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat-cell:last-child { border-right: none; }
+
+        .stat-cell .stat-label {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-cell .stat-value {
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+        }
+
+        .stat-cell .stat-value.orange   { color: var(--orange); }
+        .stat-cell .stat-value.blue     { color: var(--gulf-blue); }
+        .stat-cell .stat-value.old-blue { color: var(--old-blue); font-family: 'Courier New', monospace; font-size: 1.1rem; }
+
+        .stat-cell .stat-sub {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            margin-top: 0.3rem;
+        }
+
+        .stat-bar {
+            margin-top: 0.6rem;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: var(--orange);
+            width: 0;
+            transition: width 1.4s ease;
+        }
+
+        /* ── Spec table ── */
+        .spec-table-section {
+            padding: 1.75rem 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.55rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-family: 'Courier New', monospace;
+        }
+
+        .spec-row:last-child { border-bottom: none; }
+
+        .spec-key {
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .spec-val {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: right;
+        }
+
+        .spec-val.hi { color: var(--amber); }
+
+        /* ── Evidence strip ── */
+        .gallery-section {
+            padding: 1.75rem 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .evidence-strip {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            cursor: grab;
+            padding-bottom: 0.5rem;
+        }
+
+        .evidence-strip:active { cursor: grabbing; }
+        .evidence-strip::-webkit-scrollbar { height: 2px; }
+        .evidence-strip::-webkit-scrollbar-thumb { background: var(--orange); }
+
+        .ev-thumb {
+            flex: 0 0 auto;
+            scroll-snap-align: start;
+            background: var(--panel2);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            height: 200px;
+        }
+
+        .ev-thumb.wide { width: 290px; }
+        .ev-thumb.tall { width: 148px; }
+        .ev-thumb.sq   { width: 200px; }
+
+        .ev-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.55) contrast(1.1);
+            transition: filter 0.3s, transform 0.3s;
+            display: block;
+        }
+
+        .ev-thumb:hover img { filter: saturate(1) contrast(1); transform: scale(1.04); }
+
+        .ev-thumb .year-tag {
+            position: absolute;
+            top: 0.35rem;
+            left: 0.35rem;
+            background: rgba(0,0,0,0.85);
+            color: var(--orange);
+            font-family: 'Courier New', monospace;
+            font-size: 0.5rem;
+            padding: 0.12rem 0.35rem;
+            letter-spacing: 0.1em;
+            z-index: 2;
+        }
+
+        .ev-thumb .ev-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.88);
+            color: var(--text);
+            font-size: 0.58rem;
+            font-weight: 700;
+            padding: 0.35rem 0.5rem;
+            opacity: 0;
+            transition: opacity 0.25s;
+            z-index: 2;
+        }
+
+        .ev-thumb:hover .ev-caption { opacity: 1; }
+
+        /* ── Story ── */
+        .story-section {
+            padding: 1.75rem 2.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .story-section p {
+            font-size: 0.95rem;
+            line-height: 1.85;
+            opacity: 0.82;
+            margin-bottom: 1.2rem;
+        }
+
+        .story-section p:last-child { margin-bottom: 0; }
+
+        .rap-quote {
+            border-left: 3px solid var(--orange);
+            padding-left: 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        /* ── Status bar ── */
+        .status-bar {
+            padding: 0.9rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--panel);
+            border-top: 1px solid var(--border);
+        }
+
+        .status-item {
+            font-size: 0.58rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+        /* Uncertainty */
+        body.unc-deep    { background: #06060f; }
+        body.unc-night   { background: #08080e; }
+        body.unc-evening { background: #0a0a0c; }
+        body.unc-day     { background: #080808; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.97);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border: 1px solid var(--border);
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.25rem; right: 1.5rem;
+            color: var(--text);
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 100000;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .blacklist-layout { grid-template-columns: 1fr; }
+            .portrait-panel { position: relative; height: 70vw; min-height: 300px; top: 0; }
+            .blacklist-layout, .blacklist-layout.expanded { grid-template-columns: 1fr; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .data-header, .spec-table-section, .gallery-section, .story-section, .status-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
+            .stat-cell { padding: 1.1rem 1.25rem; }
+        }
+    </style>
+</head>
+<body class="unc-day">
+
+    <div class="hud-bar"></div>
+    <a href="index.html" class="back-button">← Back</a>
+
+    <div class="blacklist-layout">
+
+        <!-- ── LEFT: Portrait + Gallery ── -->
+        <aside class="portrait-panel" id="portraitPanel">
+
+            <div class="portrait-header">
+                <div>
+                    <div class="rank-label">Vehicle Profile</div>
+                    <div class="rank-num">A35</div>
+                </div>
+            </div>
+
+            <!-- Default portrait -->
+            <div class="portrait-img" id="portraitImg">
+                <div class="portrait-stripe"></div>
+                <img class="main-img" src="images/Tomos2/TomosNewShoot-01.jpg" alt="Tomos A35">
+                <div class="portrait-name">
+                    <div class="vehicle-name">TOMOS<br><em>A35</em></div>
+                    <div class="vehicle-sub">2005 · Gulf Livery · Chrome</div>
+                </div>
+            </div>
+
+            <!-- Gallery overlay — slides in on click -->
+            <div class="gallery-overlay" id="galleryOverlay">
+                <div class="gallery-overlay-header">
+                    <span>Build Archive — <span id="galCounter">1 / 22</span></span>
+                    <span class="gallery-scroll-hint">← → to navigate</span>
+                </div>
+
+                <div class="gallery-featured" id="galleryFeatured">
+                    <img id="galFeatImg" src="" alt="">
+                    <button class="gallery-nav prev" onclick="galStep(-1, event)">‹</button>
+                    <button class="gallery-nav next" onclick="galStep(1, event)">›</button>
+                    <div class="feat-caption">
+                        <span id="galCaption"></span>
+                        <span class="feat-year" id="galYear"></span>
+                    </div>
+                </div>
+
+                <div class="gallery-thumbs" id="galleryThumbs"></div>
+            </div>
+
+        </aside>
+
+        <!-- ── RIGHT: Data ── -->
+        <main class="data-panel">
+
+            <div class="data-header">
+                <h1>Tomos A35 — Restomod · Personal Project · 2022–∞</h1>
+            </div>
+
+            <!-- Stats -->
+            <div class="stat-grid">
+                <div class="stat-cell">
+                    <div class="stat-label">Base year</div>
+                    <div class="stat-value orange">2005</div>
+                    <div class="stat-sub">Tomos A35 frame</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="85"></div></div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-label">Parts remaining</div>
+                    <div class="stat-value orange">1</div>
+                    <div class="stat-sub">Frame only</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="5"></div></div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-label">Years in build</div>
+                    <div class="stat-value">4+</div>
+                    <div class="stat-sub">2022 – present</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="70"></div></div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-label">Engine</div>
+                    <div class="stat-value" style="font-size:1.1rem;">50cc</div>
+                    <div class="stat-sub">2-stroke</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="50"></div></div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-label">Livery</div>
+                    <div class="stat-value blue" style="font-size:1.1rem;">Gulf</div>
+                    <div class="stat-sub">#f16412 · #00a3c4</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="100" style="background: linear-gradient(90deg, var(--orange) 50%, var(--gulf-blue) 50%)"></div></div>
+                </div>
+                <div class="stat-cell">
+                    <div class="stat-label">Original color</div>
+                    <div class="stat-value old-blue">#0000FF</div>
+                    <div class="stat-sub">Factory — forgotten</div>
+                    <div class="stat-bar"><div class="stat-bar-fill" data-w="30" style="background:#0000ff"></div></div>
+                </div>
+            </div>
+
+            <!-- Spec table -->
+            <div class="spec-table-section">
+                <div class="section-title">Technical Sheet</div>
+                <div class="spec-row">
+                    <span class="spec-key">Classification</span>
+                    <span class="spec-val hi">Restomod</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Base vehicle</span>
+                    <span class="spec-val">Tomos A35, 2005</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Surviving original parts</span>
+                    <span class="spec-val hi">Frame only</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Livery inspiration</span>
+                    <span class="spec-val">Gulf Racing (917/40, F1 GTR)</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Finish</span>
+                    <span class="spec-val">Chrome details + custom paint</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Wheels</span>
+                    <span class="spec-val">Spoke — custom</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Exhaust</span>
+                    <span class="spec-val">Chrome — custom</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Instrumentation</span>
+                    <span class="spec-val">Tachometer + Speedometer</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Headlight</span>
+                    <span class="spec-val">Hella vintage</span>
+                </div>
+                <div class="spec-row">
+                    <span class="spec-key">Project type</span>
+                    <span class="spec-val">Personal / Exhibition</span>
+                </div>
+            </div>
+
+            <!-- Build record strip -->
+            <div class="gallery-section">
+                <div class="section-title">Build Record</div>
+                <div class="evidence-strip" id="evidenceStrip">
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/DSC_0507.jpg" alt=""><span class="year-tag">2022</span><div class="ev-caption">Start: Completely seized</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20230319_171430.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">Getting it running</div></div>
+                    <div class="ev-thumb tall" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20230507_182234.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">First drive home from Nijmegen</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20230508_144025.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">Arrived home + new Hella headlight</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20230522_170421.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">Refreshed rims + new rear light</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/Tomos-02.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">New frame bar, paint + LED</div></div>
+                    <div class="ev-thumb tall" onclick="lightbox(this)"><img src="images/Tomos2/backup-12.jpg" alt=""><span class="year-tag">2023</span><div class="ev-caption">Taking it on trips</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20240206_171438.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">New tires</div></div>
+                    <div class="ev-thumb sq"   onclick="lightbox(this)"><img src="images/Tomos/IMG_20240313_140759.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">Addressing rust, prep for paint</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20240318_160920.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">Fresh paint!</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20240404_113804.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">New decals</div></div>
+                    <div class="ev-thumb tall" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20240727_152754.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">Indicators + electronics</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/Tomos-15-2.jpg" alt=""><span class="year-tag">2024</span><div class="ev-caption">Thinking I was finished...</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20250411_102443.jpg" alt=""><span class="year-tag">2025</span><div class="ev-caption">Fixing clutch problems</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/IMG_20250411_164531.jpg" alt=""><span class="year-tag">2025</span><div class="ev-caption">Fixing engine problems</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/TomosNew-11.jpg" alt=""><span class="year-tag">2025</span><div class="ev-caption">New improved chrome exhaust</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/PXL_20251113_142355086.jpg" alt=""><span class="year-tag">2025</span><div class="ev-caption">Time for new parts!</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/tomo.jpg" alt=""><span class="year-tag">2025</span><div class="ev-caption">New spoke wheels, swing arm + front fork</div></div>
+                    <div class="ev-thumb tall" onclick="lightbox(this)"><img src="images/Tomos2/PXL_20260315_125440749.jpg" alt=""><span class="year-tag">2026</span><div class="ev-caption">Ignition key + new light interface</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/TomosNewShoot-33.jpg" alt=""><span class="year-tag">2026</span><div class="ev-caption">New tachometer + speedometer</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/TomosNewShoot-01.jpg" alt=""><span class="year-tag">2026</span><div class="ev-caption">Finished for now...</div></div>
+                    <div class="ev-thumb wide" onclick="lightbox(this)"><img src="images/Tomos2/DSCN4325.JPG" alt=""><span class="year-tag">2026</span><div class="ev-caption">Riding it almost daily</div></div>
+                </div>
+            </div>
+
+            <!-- Story -->
+            <div class="story-section">
+                <div class="section-title">Rap Sheet</div>
+                <p>With this build I wanted to do something different than other Tomos builds. Most builds focus on maximizing performance, pushing and tuning the little 50cc engine. In this build I wanted to focus on aesthetics and interaction. I wanted it to be a moped that puts smiles on peoples faces. Because most of the moped had to be restored, there was plenty of opportunity to customize it.</p>
+                <div class="rap-quote">"Only the frame survived. Everything else is a decision."</div>
+                <p>The Gulf livery is a provocation. Gulf Racing belongs on a Porsche 917 or a McLaren F1, not a 50cc Dutch commuter. It forces people to look twice and ask a question the object cannot answer on its own.</p>
+                <p>Currently: daily rider. Ongoing.</p>
+            </div>
+
+            <!-- Status -->
+            <div class="status-bar">
+                <div class="status-item"><div class="status-dot"></div>Build in progress</div>
+                <div class="status-item" id="uncertaintyReadout">Uncertainty: —</div>
+                <div class="status-item">Personal Project · 2022–∞</div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightboxEl" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img src="" alt="" id="lightboxImg" onclick="event.stopPropagation()">
+    </div>
+
+    <script>
+    // ── Gallery data ──
+    const galleryData = [
+        { src: 'images/Tomos2/DSC_0507.jpg',              year: '2022', cap: 'Start: Completely seized' },
+        { src: 'images/Tomos2/IMG_20230319_171430.jpg',   year: '2023', cap: 'Getting it running' },
+        { src: 'images/Tomos2/IMG_20230507_182234.jpg',   year: '2023', cap: 'First drive home from Nijmegen' },
+        { src: 'images/Tomos2/IMG_20230508_144025.jpg',   year: '2023', cap: 'Arrived home + new Hella headlight' },
+        { src: 'images/Tomos2/IMG_20230522_170421.jpg',   year: '2023', cap: 'Refreshed rims + new rear light' },
+        { src: 'images/Tomos2/Tomos-02.jpg',              year: '2023', cap: 'New frame bar, paint + LED' },
+        { src: 'images/Tomos2/backup-12.jpg',             year: '2023', cap: 'Taking it on trips' },
+        { src: 'images/Tomos2/IMG_20240206_171438.jpg',   year: '2024', cap: 'New tires' },
+        { src: 'images/Tomos/IMG_20240313_140759.jpg',    year: '2024', cap: 'Addressing rust, prep for paint' },
+        { src: 'images/Tomos2/IMG_20240318_160920.jpg',   year: '2024', cap: 'Fresh paint!' },
+        { src: 'images/Tomos2/IMG_20240404_113804.jpg',   year: '2024', cap: 'New decals' },
+        { src: 'images/Tomos2/IMG_20240727_152754.jpg',   year: '2024', cap: 'Indicators + electronics' },
+        { src: 'images/Tomos2/Tomos-15-2.jpg',            year: '2024', cap: 'Thinking I was finished...' },
+        { src: 'images/Tomos2/IMG_20250411_102443.jpg',   year: '2025', cap: 'Fixing clutch problems' },
+        { src: 'images/Tomos2/IMG_20250411_164531.jpg',   year: '2025', cap: 'Fixing engine problems' },
+        { src: 'images/Tomos2/TomosNew-11.jpg',           year: '2025', cap: 'New improved chrome exhaust' },
+        { src: 'images/Tomos2/PXL_20251113_142355086.jpg',year: '2025', cap: 'Time for new parts!' },
+        { src: 'images/Tomos2/tomo.jpg',                  year: '2025', cap: 'New spoke wheels, swing arm + front fork' },
+        { src: 'images/Tomos2/PXL_20260315_125440749.jpg',year: '2026', cap: 'Ignition key + new light interface' },
+        { src: 'images/Tomos2/TomosNewShoot-33.jpg',      year: '2026', cap: 'New tachometer + speedometer' },
+        { src: 'images/Tomos2/TomosNewShoot-01.jpg',      year: '2026', cap: 'Finished for now...' },
+        { src: 'images/Tomos2/DSCN4325.JPG',              year: '2026', cap: 'Riding it almost daily' },
+    ];
+
+    let galIndex = 0;
+
+    // Build thumb strip
+    const thumbsEl = document.getElementById('galleryThumbs');
+    galleryData.forEach((d, i) => {
+        const t = document.createElement('div');
+        t.className = 'g-thumb' + (i === 0 ? ' active' : '');
+        t.innerHTML = `<img src="${d.src}" alt="">`;
+        t.addEventListener('click', e => { e.stopPropagation(); galGoTo(i); });
+        thumbsEl.appendChild(t);
+    });
+
+    function galGoTo(i) {
+        galIndex = (i + galleryData.length) % galleryData.length;
+        const d = galleryData[galIndex];
+        document.getElementById('galFeatImg').src = d.src;
+        document.getElementById('galCaption').textContent = d.cap;
+        document.getElementById('galYear').textContent = d.year;
+        document.getElementById('galCounter').textContent = `${galIndex + 1} / ${galleryData.length}`;
+        thumbsEl.querySelectorAll('.g-thumb').forEach((t, idx) => t.classList.toggle('active', idx === galIndex));
+        // scroll thumb into view
+        thumbsEl.children[galIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    function galStep(dir, e) {
+        e?.stopPropagation();
+        galGoTo(galIndex + dir);
+    }
+
+    const panel     = document.getElementById('portraitPanel');
+    const layout    = document.querySelector('.blacklist-layout');
+    const dataPanel = document.querySelector('.data-panel');
+    let closeTimer  = null;
+
+    function openGallery() {
+        clearTimeout(closeTimer);
+        galGoTo(galIndex);
+        layout.classList.add('expanded');
+    }
+
+    function scheduleClose() {
+        closeTimer = setTimeout(() => {
+            layout.classList.remove('expanded');
+        }, 150);
+    }
+
+    // Hover left panel → open
+    panel.addEventListener('mouseenter', openGallery);
+    panel.addEventListener('mouseleave', scheduleClose);
+
+    // Moving into right panel → close (cancel any pending close first to avoid race)
+    dataPanel.addEventListener('mouseenter', () => {
+        clearTimeout(closeTimer);
+        layout.classList.remove('expanded');
+    });
+
+    // Auto-open on page load as a hint, then slide back
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            galGoTo(0);
+            layout.classList.add('expanded');
+            setTimeout(() => {
+                if (!panel.matches(':hover')) {
+                    layout.classList.remove('expanded');
+                }
+            }, 2200);
+        }, 700);
+    });
+
+    // Keyboard nav while expanded
+    document.addEventListener('keydown', e => {
+        if (!layout.classList.contains('expanded')) return;
+        if (e.key === 'ArrowRight') galStep(1);
+        if (e.key === 'ArrowLeft')  galStep(-1);
+    });
+
+    // ── Evidence strip drag ──
+    const strip = document.getElementById('evidenceStrip');
+    let isDown = false, startX, scrollLeft;
+    strip.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - strip.offsetLeft; scrollLeft = strip.scrollLeft; });
+    strip.addEventListener('mouseleave', () => { isDown = false; });
+    strip.addEventListener('mouseup',    () => { isDown = false; });
+    strip.addEventListener('mousemove',  e => {
+        if (!isDown) return;
+        e.preventDefault();
+        strip.scrollLeft = scrollLeft - (e.pageX - strip.offsetLeft - startX) * 1.5;
+    });
+
+    // ── Lightbox (for evidence strip) ──
+    function lightbox(card) {
+        const img = card.querySelector('img');
+        if (!img) return;
+        document.getElementById('lightboxImg').src = img.src;
+        document.getElementById('lightboxEl').classList.add('active');
+    }
+    function closeLightbox() {
+        document.getElementById('lightboxEl').classList.remove('active');
+    }
+
+    // ── Stat bar animation ──
+    window.addEventListener('load', () => {
+        document.querySelectorAll('.stat-bar-fill').forEach(bar => {
+            const w = bar.dataset.w;
+            setTimeout(() => { bar.style.width = w + '%'; }, 300);
+        });
+    });
+
+    // ── Uncertainty ──
+    const now = new Date();
+    const hour = now.getHours();
+    const isWeekend = (now.getDay() === 0 || now.getDay() === 6);
+    let uncLabel = 'LOW';
+    document.body.classList.remove('unc-day','unc-evening','unc-night','unc-deep');
+    if      (hour >= 2  && hour < 6)               { document.body.classList.add('unc-deep');    uncLabel = 'EXTREME'; }
+    else if (hour >= 23 || hour < 2)               { document.body.classList.add('unc-night');   uncLabel = 'HIGH'; }
+    else if ((hour >= 6 && hour < 9) || (hour >= 17 && !isWeekend)) { document.body.classList.add('unc-evening'); uncLabel = 'MEDIUM'; }
+    else                                           { document.body.classList.add('unc-day');     uncLabel = 'LOW'; }
+    document.getElementById('uncertaintyReadout').innerHTML =
+        `<div class="status-dot" style="background:${uncLabel==='EXTREME'?'#0000ff':uncLabel==='HIGH'?'#6060ff':'var(--orange)'}"></div>Uncertainty: ${uncLabel}`;
+    </script>
+
+</body>
+</html>
