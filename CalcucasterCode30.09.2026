@@ -1,0 +1,491 @@
+import pygame
+import serial
+import subprocess
+import time
+import rtmidi
+import random
+import threading
+import math
+import numpy as np
+import sounddevice as sd
+import RPi.GPIO as GPIO
+
+# === SCALES ===
+SCALES = {
+    'major':      [0, 2, 4, 5, 7, 9, 11],
+    'minor':      [0, 2, 3, 5, 7, 8, 10],
+    'pentatonic': [0, 2, 4, 7, 9],
+    'chromatic':  list(range(12)),
+}
+SCALE_NAMES = list(SCALES.keys())
+
+# === BUTTON -> NOTE MAPPING ===
+TEMP_NO_BUTTONS = False
+BUTTON_CC_TO_NOTE = {
+    33: 0,  34: 1,  35: 2,
+    36: 3,  37: 4,  38: 5,
+    39: 6,  40: 7,  41: 8,
+    42: 9,  43: 10, 44: 11,
+}
+
+# === INSTRUMENTS ===
+INSTRUMENTS = [
+    (0,  "Piano"),
+    (48, "Strings"),
+    (38, "Synth Bass"),
+    (24, "Guitar"),
+    (56, "Trumpet"),
+    (73, "Flute"),
+]
+instrument_idx = 0
+
+# === AUDIO / DELAY SETTINGS ===
+SAMPLE_RATE    = 44100
+CHANNELS       = 2
+BLOCK_SIZE     = 512
+DELAY_TIME_S   = 0.3                          # 300ms fixed delay
+DELAY_SAMPLES  = int(DELAY_TIME_S * SAMPLE_RATE)
+delay_buffer   = np.zeros((DELAY_SAMPLES, CHANNELS), dtype=np.float32)
+delay_pos      = 0
+delay_lock     = threading.Lock()
+
+# === CONTROL MAPPING ===
+# Slider 1  (CC 20) -> Octave (2-7)
+# Slider 2  (CC 21) -> Vibrato (CC 1)
+# Encoder 1 rot (CC 22) -> Delay mix (dry/wet)
+# Encoder 2 rot (CC 23) -> Delay feedback (number of repeats)
+# Encoder 3 rot (E0)    -> Pitch bend
+# Encoder 1 click (CC 30) -> Sustain toggle
+# Encoder 2 click (CC 31) -> Portamento toggle
+# Encoder 3 click (CC 32) -> Cycle instrument
+
+MAJOR_SCALE = [0, 2, 4, 5, 7, 9, 11, 12, 14, 16]
+
+def note_to_midi(note_num, octave=4):
+    base = octave * 12
+    return base + MAJOR_SCALE[note_num % 10]
+
+def generate_chord(root, octave=4):
+    m = note_to_midi(root, octave)
+    return [m, m + 4, m + 7]
+
+def generate_arpeggio(root, octave=4):
+    m = note_to_midi(root, octave)
+    return [m, m + 4, m + 7, m + 12]
+
+def generate_inverted_arpeggio(root, octave=4):
+    m = note_to_midi(root, octave)
+    return [m + 12, m + 7, m + 4, m]
+
+def get_notes(mode, note, octave=4):
+    if note is None:
+        return []
+    if mode == 'chord':
+        return generate_chord(note, octave)
+    elif mode == 'arpeggio':
+        return generate_arpeggio(note, octave)
+    elif mode == 'inverted_arpeggio':
+        return generate_inverted_arpeggio(note, octave)
+    else:
+        return [note_to_midi(note, octave)]
+
+MODES = ['single', 'chord', 'arpeggio', 'inverted_arpeggio']
+MODE_COLORS = {
+    'single':            (255, 0,   0),
+    'chord':             (0,   0,   255),
+    'arpeggio':          (128, 0,   128),
+    'inverted_arpeggio': (255, 255, 0),
+}
+
+# === STATE ===
+state = {
+    'playing':       True,
+    'selected_note': 0,
+    'mode':          'single',
+    'mode_idx':      0,
+    'octave':        4,
+    'velocity':      100,
+    'running':       True,
+    'last_interact': time.time(),
+    'ai_playing':    False,
+    'delay_mix':     0.4,
+    'delay_speed':   0.3,   # seconds between echoes
+    'delay_feedback':0.6,   # 0.0=one echo, 1.0=infinite
+    'sustain':       False,
+    'portamento':    False,
+}
+
+vibrations = []
+vibration_lock = threading.Lock()
+
+# === LED ===
+LED_PIN = 17
+GPIO.setwarnings(False)
+GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(LED_PIN, GPIO.OUT)
+GPIO.output(LED_PIN, GPIO.HIGH)
+
+def led_blinker():
+    while state['running']:
+        if state['playing']:
+            GPIO.output(LED_PIN, GPIO.HIGH)
+            time.sleep(0.1)
+        else:
+            GPIO.output(LED_PIN, GPIO.HIGH)
+            time.sleep(0.3)
+            GPIO.output(LED_PIN, GPIO.LOW)
+            time.sleep(0.3)
+
+threading.Thread(target=led_blinker, daemon=True).start()
+
+# === START FLUIDSYNTH -> loopback card 3 ===
+# FluidSynth outputs to loopback hw:3,0
+# Python reads from loopback hw:3,1 and applies delay, then writes to headphones hw:0
+fluidsynth = subprocess.Popen([
+    'fluidsynth',
+    '-a', 'alsa',
+    '-m', 'alsa_seq',
+    '-r', '44100',
+    '-g', '3.0',
+    '-i',
+    '/usr/share/sounds/sf2/FluidR3_GM.sf2'
+], stdin=subprocess.DEVNULL)
+time.sleep(5)
+
+# === MIDI OUT ===
+midi_out = rtmidi.MidiOut()
+fs_port = None
+for attempt in range(30):
+    ports = midi_out.get_ports()
+    fs_port = next((i for i, p in enumerate(ports) if 'FLUID' in p.upper()), None)
+    if fs_port is not None:
+        break
+    print(f"Waiting for FluidSynth... attempt {attempt + 1}")
+    time.sleep(1)
+
+if fs_port is None:
+    print("FluidSynth not found!")
+    exit()
+midi_out.open_port(fs_port)
+print("Connected to FluidSynth")
+
+midi_lock = threading.Lock()
+
+def send_cc(cc, value):
+    with midi_lock:
+        midi_out.send_message([0xB0, cc, value])
+
+def send_patch(program):
+    with midi_lock:
+        midi_out.send_message([0xC0, program])
+
+def send_note_on(note, vel=100):
+    with midi_lock:
+        midi_out.send_message([0x90, note, vel])
+
+def send_note_off(note):
+    with midi_lock:
+        midi_out.send_message([0x80, note, 0])
+
+def send_pitch_bend(value):
+    lsb = value & 0x7F
+    msb = (value >> 7) & 0x7F
+    with midi_lock:
+        midi_out.send_message([0xE0, lsb, msb])
+
+# === INITIAL MIDI STATE ===
+send_patch(INSTRUMENTS[instrument_idx][0])
+print(f"Instrument: {INSTRUMENTS[instrument_idx][1]}")
+send_cc(7,  127)   # volume max
+send_cc(11, 127)   # expression max
+
+# === DELAY AUDIO CALLBACK ===
+def audio_callback(indata, outdata, frames, time_info, status):
+    global delay_pos
+    with delay_lock:
+        mix      = state['delay_mix']
+        feedback = state['delay_feedback']
+
+    out = np.zeros((frames, CHANNELS), dtype=np.float32)
+    for i in range(frames):
+        dry = indata[i].copy()
+        wet = delay_buffer[delay_pos].copy()
+
+        # Write new sample into buffer (input + feedback)
+        delay_buffer[delay_pos] = dry + wet * feedback
+        delay_pos = (delay_pos + 1) % DELAY_SAMPLES
+
+        # Mix dry and wet signals
+        out[i] = dry * (1.0 - mix) + wet * mix
+
+    outdata[:] = out
+
+# Start the audio stream: read from loopback (card 3 subdevice 1), write to headphones (card 0)
+audio_stream = None
+print("Using MIDI delay mode")
+
+active_notes = []
+
+def play_notes(notes, velocity, x, y):
+    global active_notes
+    for n in active_notes:
+        send_note_off(n)
+    active_notes = []
+
+    if state['mode'] in ('arpeggio', 'inverted_arpeggio'):
+        def arpeggiate():
+            for n in notes:
+                send_note_on(n, velocity)
+                active_notes.append(n)
+                time.sleep(0.05)
+        threading.Thread(target=arpeggiate, daemon=True).start()
+    else:
+        for n in notes:
+            send_note_on(n, velocity)
+            active_notes.append(n)
+
+    with vibration_lock:
+        vibrations.append([x, y, 8.0])
+
+    # MIDI delay — schedule repeated echoes
+    def midi_delay():
+        delay_time = state['delay_speed']
+        feedback   = state['delay_feedback']
+        vel        = int(velocity * state['delay_mix'])
+
+        while vel >= 5:
+            time.sleep(delay_time)
+            for n in notes:
+                send_note_on(n, vel)
+                time.sleep(0.05)
+                send_note_off(n)
+            if feedback >= 0.98:
+                pass
+            else:
+                vel = int(vel * feedback)
+
+    threading.Thread(target=midi_delay, daemon=True).start()
+
+def release_notes():
+    global active_notes
+    for n in active_notes:
+        send_note_off(n)
+    active_notes = []
+
+# === AI IDLE PLAYER ===
+def ai_player():
+    while state['running']:
+        if not state['ai_playing']:
+            time.sleep(0.5)
+            continue
+
+        ai_note = random.randint(0, 9)
+        ai_mode = random.choice(MODES)
+        notes   = get_notes(ai_mode, ai_note, state['octave'])
+        vel     = random.randint(80, 120)
+
+        w, h = pygame.display.get_surface().get_size()
+        x, y = random.randint(0, w), random.randint(0, h)
+
+        for n in notes:
+            send_note_on(n, vel)
+            with vibration_lock:
+                vibrations.append([x, y, 6.0])
+            time.sleep(random.uniform(0.15, 0.5))
+
+        time.sleep(random.uniform(0.5, 2.0))
+
+        for n in notes:
+            send_note_off(n)
+
+        time.sleep(random.uniform(1.5, 4.0))
+
+threading.Thread(target=ai_player, daemon=True).start()
+
+# === ARDUINO SERIAL READER ===
+try:
+    ser = serial.Serial('/dev/ttyACM0', 115200, timeout=0.01)
+    print("Arduino connected")
+except Exception as e:
+    ser = None
+    print(f"Arduino not found: {e}")
+
+def serial_reader():
+    if ser is None:
+        return
+    buf = []
+    while state['running']:
+        data = ser.read(64)
+        if not data:
+            continue
+        buf.extend(data)
+
+        while len(buf) >= 3:
+            if not (buf[0] & 0x80):
+                buf.pop(0)
+                continue
+
+            msg    = buf[:3]
+            buf    = buf[3:]
+            status, b1, b2 = msg
+            state['last_interact'] = time.time()
+            state['ai_playing']    = False
+
+            # Pitch bend (encoder 3 rotation)
+            if status == 0xE0:
+                bend = b1 | (b2 << 7)
+                send_pitch_bend(bend)
+
+            elif status == 0xB0:
+                cc, val = b1, b2
+
+                # Slider 1 -> Octave
+                if cc == 20:
+                    state['octave'] = 2 + int((val / 127) * 5)
+                    print(f"Octave: {state['octave']}")
+
+                # Slider 2 -> Vibrato
+                elif cc == 21:
+                    send_cc(1, val)
+                    print(f"Vibrato: {val}")
+
+                # Encoder 1 rotation -> Delay speed (50ms to 800ms)
+                elif cc == 22:
+                    state['delay_speed'] = 0.05 + (val / 127) * 0.75
+                    print(f"Delay speed: {state['delay_speed']:.2f}s")
+
+                # Encoder 2 rotation -> Delay feedback (one echo to infinite)
+                elif cc == 23:
+                    state['delay_feedback'] = val / 127
+                    print(f"Delay feedback: {state['delay_feedback']:.2f}")
+
+                # Encoder 1 click -> Sustain toggle
+                elif cc == 30 and val == 127:
+                    state['sustain'] = not state['sustain']
+                    send_cc(64, 127 if state['sustain'] else 0)
+                    print(f"Sustain: {'ON' if state['sustain'] else 'OFF'}")
+
+                # Encoder 2 click -> Portamento toggle
+                elif cc == 31 and val == 127:
+                    state['portamento'] = not state['portamento']
+                    send_cc(65, 127 if state['portamento'] else 0)
+                    # Portamento time: fixed at a nice medium value
+                    send_cc(5, 40)
+                    print(f"Portamento: {'ON' if state['portamento'] else 'OFF'}")
+
+                # Encoder 3 click -> Cycle instrument
+                elif cc == 32 and val == 127:
+                    global instrument_idx
+                    instrument_idx = (instrument_idx + 1) % len(INSTRUMENTS)
+                    program, name  = INSTRUMENTS[instrument_idx]
+                    send_patch(program)
+                    send_cc(7,  127)
+                    send_cc(11, 127)
+                    print(f"Instrument: {name}")
+
+                # Note buttons 1-12
+                elif (not TEMP_NO_BUTTONS) and cc in BUTTON_CC_TO_NOTE and val == 127:
+                    note_num = BUTTON_CC_TO_NOTE[cc]
+                    state['selected_note'] = note_num
+                    notes = get_notes(state['mode'], note_num, state['octave'])
+                    w, h  = pygame.display.get_surface().get_size()
+                    play_notes(notes, state['velocity'], w // 2, h // 2)
+
+                elif (not TEMP_NO_BUTTONS) and cc in BUTTON_CC_TO_NOTE and val == 0:
+                    release_notes()
+
+threading.Thread(target=serial_reader, daemon=True).start()
+
+# === PYGAME ===
+pygame.init()
+screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+pygame.display.set_caption("CalcuCaster")
+clock = pygame.time.Clock()
+W, H  = screen.get_size()
+SPACING = 50
+ai_phase = 0.0
+
+# === MAIN LOOP ===
+while state['running']:
+    dt        = clock.tick(30) / 1000.0
+    ai_phase += 0.01
+
+    if time.time() - state['last_interact'] > 60:
+        state['ai_playing'] = True
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            state['running'] = False
+
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                state['running'] = False
+
+        elif event.type == pygame.FINGERDOWN:
+            state['last_interact'] = time.time()
+            state['ai_playing']    = False
+            if state['selected_note'] is not None:
+                tx       = int(event.x * W)
+                ty       = int(event.y * H)
+                velocity = max(60, min(127, int((tx / W) * 127)))
+                notes    = get_notes(state['mode'], state['selected_note'], state['octave'])
+                play_notes(notes, velocity, tx, ty)
+
+        elif event.type == pygame.FINGERUP:
+            release_notes()
+
+    # Decay vibrations
+    with vibration_lock:
+        for v in vibrations:
+            v[2] *= 0.95
+        vibrations[:] = [v for v in vibrations if v[2] > 0.01]
+
+    # Draw
+    screen.fill((0, 0, 0, 40))
+    color = MODE_COLORS[state['mode']]
+
+    with vibration_lock:
+        vibs = [v[:] for v in vibrations]
+
+    for x in range(0, W, SPACING):
+        for y in range(0, H, SPACING):
+            ox1 = oy1 = ox2 = oy2 = 0.0
+            t = pygame.time.get_ticks() * 0.001
+
+            for v in vibs:
+                vx, vy, strength = v
+                dx1    = x - (vx + 150)
+                dy1    = y - (vy - 150)
+                d1     = math.sqrt(dx1*dx1 + dy1*dy1) + 0.001
+                factor1 = strength * math.exp(-d1 * 0.01)
+                oy1 += math.cos(d1 * 0.1 + t + ai_phase) * factor1 * 50
+                ox1 += math.sin(d1 * 0.1 + t + ai_phase) * factor1 * 30
+
+                dx2    = (x + SPACING) - (vx + 150)
+                dy2    = y - (vy - 150)
+                d2     = math.sqrt(dx2*dx2 + dy2*dy2) + 0.001
+                factor2 = strength * math.exp(-d2 * 0.01)
+                oy2 += math.cos(d2 * 0.1 + t + ai_phase) * factor2 * 50
+                ox2 += math.sin(d2 * 0.1 + t + ai_phase) * factor2 * 30
+
+            x1 = int(x + ox1)
+            y1 = int(y + oy1)
+            x2 = int(x + SPACING + ox2)
+            y2 = int(y + oy2)
+            pygame.draw.line(screen, color, (x1, y1), (x2, y2), 1)
+
+    pygame.display.flip()
+
+# === CLEANUP ===
+release_notes()
+if audio_stream:
+    audio_stream.stop()
+    audio_stream.close()
+if ser:
+    ser.close()
+midi_out.close_port()
+fluidsynth.terminate()
+GPIO.output(LED_PIN, GPIO.LOW)
+GPIO.cleanup()
+pygame.quit()
