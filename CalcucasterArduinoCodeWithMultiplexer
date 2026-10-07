@@ -1,0 +1,135 @@
+// === MULTIPLEXER (HC4067) ===
+const int MUX_S0  = A3;
+const int MUX_S1  = A4;
+const int MUX_S2  = A5;
+const int MUX_S3  = 11;
+const int MUX_SIG = 12;
+const int LED_PIN = 13;
+const int NUM_BUTTONS = 14;
+
+const int buttonCCs[14] = {
+  33, 34, 35, 36, 37, 38,
+  39, 40, 41, 42, 43, 44,
+  30, 31  // play/pause, mode cycle
+};
+
+bool lastButtonState[14] = {false};
+
+// === SLIDERS ===
+const int sliderPins[2] = {A0, A2};
+const int sliderCCs[2]  = {20, 21};
+int lastSliderValue[2]  = {-1, -1};
+
+// === ENCODERS ===
+const int encoders[3][2] = {
+  {7, 2},  // Encoder 1: CLK=D7, DT=D2
+  {4, 3},  // Encoder 2: CLK=D4, DT=D3
+  {5, 6}   // Encoder 3: CLK=D5, DT=D6
+};
+const int encoderCCs[3]    = {22, 23, 24};
+int encoderValue[3]        = {64, 64, 64};
+int lastEncState[3]        = {0, 0, 0};
+
+// === ENCODER BUTTONS ===
+const int encoderButtons[3] = {8, 9, 10};
+const int encButtonCCs[3]   = {32, 35, 36}; // patch changes
+bool lastEncButtonState[3]  = {HIGH, HIGH, HIGH};
+
+void setup() {
+  Serial.begin(115200);
+
+  // Mux control pins
+  pinMode(MUX_S0,  OUTPUT);
+  pinMode(MUX_S1,  OUTPUT);
+  pinMode(MUX_S2,  OUTPUT);
+  pinMode(MUX_S3,  OUTPUT);
+  pinMode(MUX_SIG, INPUT_PULLUP);
+  pinMode(LED_PIN, OUTPUT);
+  digitalWrite(LED_PIN, HIGH); // Turn on immediately at boot
+
+  // Encoder pins
+  for (int i = 0; i < 3; i++) {
+    pinMode(encoders[i][0], INPUT);
+    pinMode(encoders[i][1], INPUT);
+    lastEncState[i] = digitalRead(encoders[i][0]);
+    pinMode(encoderButtons[i], INPUT_PULLUP);
+  }
+}
+
+void loop() {
+  readMuxButtons();
+  readSliders();
+  readEncoders();
+  readEncoderButtons();
+  delay(1);
+}
+
+void selectMuxChannel(int ch) {
+  digitalWrite(MUX_S0, ch & 1);
+  digitalWrite(MUX_S1, (ch >> 1) & 1);
+  digitalWrite(MUX_S2, (ch >> 2) & 1);
+  digitalWrite(MUX_S3, (ch >> 3) & 1);
+}
+
+void readMuxButtons() {
+  for (int i = 0; i < NUM_BUTTONS; i++) {
+    selectMuxChannel(i);
+    delayMicroseconds(10);
+    bool pressed = (digitalRead(MUX_SIG) == LOW);
+    if (pressed != lastButtonState[i]) {
+      sendCC(buttonCCs[i], pressed ? 127 : 0);
+      lastButtonState[i] = pressed;
+    }
+  }
+}
+
+void readSliders() {
+  for (int i = 0; i < 2; i++) {
+    int raw     = analogRead(sliderPins[i]);
+    int midiVal = map(raw, 0, 1023, 0, 127);
+    if (abs(midiVal - lastSliderValue[i]) > 1) {
+      sendCC(sliderCCs[i], midiVal);
+      lastSliderValue[i] = midiVal;
+    }
+  }
+}
+
+void readEncoders() {
+  for (int i = 0; i < 3; i++) {
+    int clk = digitalRead(encoders[i][0]);
+    int dt  = digitalRead(encoders[i][1]);
+    if (clk != lastEncState[i]) {
+      if (dt != clk) encoderValue[i] += 4;
+      else           encoderValue[i] -= 4;
+      encoderValue[i] = constrain(encoderValue[i], 0, 127);
+      if (i == 2) sendPitchBend(encoderValue[i]);
+      else        sendCC(encoderCCs[i], encoderValue[i]);
+    }
+    lastEncState[i] = clk;
+  }
+}
+
+void readEncoderButtons() {
+  for (int i = 0; i < 3; i++) {
+    bool state = digitalRead(encoderButtons[i]);
+    if (state != lastEncButtonState[i]) {
+      sendCC(encButtonCCs[i], state == LOW ? 127 : 0);
+      lastEncButtonState[i] = state;
+    }
+  }
+}
+
+void sendCC(byte control, byte value) {
+  Serial.write(0xB0);
+  Serial.write(control);
+  Serial.write(value);
+}
+
+void sendPitchBend(int value7bit) {
+  int value14bit = map(value7bit, 0, 127, 0, 16383);
+  byte lsb = value14bit & 0x7F;
+  byte msb = (value14bit >> 7) & 0x7F;
+  Serial.write(0xE0);
+  Serial.write(lsb);
+  Serial.write(msb);
+}
